@@ -49,5 +49,18 @@ exports.findOne = async (req, res) => {
 };
 
 // update user
+exports.update = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await User.update(req.body, {
+            where: { id: req.params.id }
+        });
+        res.status(200).send({
+            message: "Updated successfully"
+        });
+    } catch (error) {
+        res.send(error);
+    };
+};
 
 // delete user
