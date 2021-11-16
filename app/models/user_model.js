@@ -1,31 +1,50 @@
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define("user", {
         username: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false,
+            unique: true,
+            notEmpty: true,
+            validate: {
+                len: {
+                    args: [3, 30],
+                    msg: "must be between 3-30 characters"
+                }
+            }
         },
         given_name: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false,
+            notEmpty: true
         },
         family_name: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false,
+            notEmpty: true
+        },
+        role: {
+            type: Sequelize.ENUM('admin', 'user'),
+            defaultValue: 'user',
+            allowNull: false,
         },
         email: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false,
+            validate: {
+                isEmail: { msg: "Email format invalid" }
+            }
         },
         password: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false,
+            notEmpty: true
         },
         profile_photo_url: {
-            type: Sequelize.STRING
-        },
-        created_at: {
-            type: Sequelize.DATE
-        },
-        updated_at: {
-            type: Sequelize.DATE
-        },
-        deleted_at: {
-            type: Sequelize.DATE
+            type: Sequelize.STRING,
+            unique: true,
+            validate: {
+                isUrl: { msg: "Invalid URL" }
+            }
         }
     });
     return User;
