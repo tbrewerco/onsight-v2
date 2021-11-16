@@ -32,7 +32,21 @@ exports.findAll = async (req, res) => {
     };
 };
 
-// get a user
+// get a user by Id
+exports.findOne = async (req, res) => {
+    try {
+        const user = await User.findByPk(req.params.id);
+        if (user === null) {
+            throw error;
+        } else {
+            res.send(user)
+        };
+    } catch (error) {
+        res.send({
+            "Error": "No user found"
+        });
+    };
+};
 
 // update user
 
