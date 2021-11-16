@@ -6,19 +6,18 @@ const PORT = process.env.PORT || 4000;
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const db = require("./app/models");
 
 const corsOptions = {
     origin: "http://localhost:3001"
 };
 
 // middleware
-
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // call sync()
-const db = require("./app/models");
 db.sequelize.sync();
 
 // test route
