@@ -64,3 +64,25 @@ exports.update = async (req, res) => {
 };
 
 // delete user
+exports.delete = (req, res) => {
+    try {
+        User.destroy({
+            where: { id: req.params.id }
+        })
+            .then(rowDeleted => {
+                if (rowDeleted == 1) {
+                    res.status(200).send({
+                        message: "Deleted successfully"
+                    });
+                } else {
+                    res.send({
+                        message: "Cannot delete. Possibly not found"
+                    })
+                }
+            })
+    } catch (error) {
+        res.status(500).send({
+            message: "Error: user not deleted"
+        });
+    };
+};
