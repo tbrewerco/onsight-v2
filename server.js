@@ -4,7 +4,6 @@ const PORT = process.env.PORT || 4000;
 
 // dependencies/imports
 const express = require("express");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 
@@ -15,7 +14,7 @@ const corsOptions = {
 // middleware
 
 app.use(cors(corsOptions));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // call sync()
