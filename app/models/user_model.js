@@ -1,27 +1,32 @@
-module.exports = (sequelize, Seqeulize) => {
+module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define("user", {
         username: {
-            type: Seqeulize.STRING
+            type: Sequelize.STRING
         },
         given_name: {
-            type: Seqeulize.STRING
+            type: Sequelize.STRING
         },
         family_name: {
-            type: Seqeulize.STRING
+            type: Sequelize.STRING
         },
         email: {
-            type: Seqeulize.STRING
+            type: Sequelize.STRING
         },
         password: {
-            type: Seqeulize.STRING
+            type: Sequelize.STRING
         },
         profile_photo_url: {
-            type: Seqeulize.STRING
+            type: Sequelize.STRING
         },
-        timestamps: true,
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
-        deletedAt: 'deleted_at',
+        created_at: {
+            type: Sequelize.DATE
+        },
+        updated_at: {
+            type: Sequelize.DATE
+        },
+        deleted_at: {
+            type: Sequelize.DATE
+        }
     });
     return User;
 }

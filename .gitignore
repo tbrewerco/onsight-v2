@@ -2,3 +2,4 @@
 .env
 /.vscode
 /docker-compose.yml
+/api_spec.js

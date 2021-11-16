@@ -6,7 +6,6 @@ const PORT = process.env.PORT || 4000;
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
 const app = express();
 
 const corsOptions = {
@@ -15,12 +14,8 @@ const corsOptions = {
 
 // middleware
 
-// cors
 app.use(cors(corsOptions));
-// parse requests of content-type application/json
-app.use(bodyParser.json());
-// parse requests of content-type application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // call sync()
@@ -31,6 +26,9 @@ db.sequelize.sync();
 app.get("/", (req, res) => {
     res.send("Welcome to Onsight");
 });
+
+// user routes
+require("./app/routes/user_routes.js")(app);
 
 // set port and listen for requests
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
