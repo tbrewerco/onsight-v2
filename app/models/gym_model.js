@@ -30,7 +30,7 @@ module.exports = (sequelize, Sequelize) => {
             isNumeric: true,
         },
         address_coordinates: {
-            type: Sequelize.GEOMETRY('POINT')
+            type: Sequelize.GEOMETRY('POINT', 4326)
         },
         has_boulders: {
             type: Sequelize.BOOLEAN,
@@ -47,23 +47,20 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: true,
             defaultValue: null
         },
-        created_by: {
-            type: Sequelize.BOOLEAN
-        },
         photo_url: {
             type: Sequelize.STRING,
             unique: true,
             validate: {
                 isUrl: { msg: "Invalid URL" }
-            },
-            created_by: {
-                type: Sequelize.INTEGER,
-                references: {
-                    model: 'users',
-                    key: 'id'
-                }
+            }
+        },
+        created_by: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: 'users',
+                key: 'id'
             }
         }
     });
     return Gym;
-}
+};
