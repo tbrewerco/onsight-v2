@@ -27,7 +27,12 @@ app.get("/", (req, res) => {
 
 // user routes
 require("./app/routes/user_routes.js")(app);
+
+// gym routes
 require("./app/routes/gym_routes.js")(app);
+
+// climbing route routes
+require("./app/routes/climbing-route_routes.js")(app);
 
 // set port and listen for requests
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

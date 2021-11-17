@@ -20,5 +20,6 @@ db.sequelize = sequelize;
 
 db.users = require("./user_model.js")(sequelize, Sequelize);
 db.gyms = require("./gym_model.js")(sequelize, Sequelize);
+db.climbing_routes = require("./climbing_route_model.js")(sequelize, Sequelize);
 
 module.exports = db;
