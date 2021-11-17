@@ -52,7 +52,7 @@ exports.findOne = async (req, res) => {
     };
 };
 
-// update user
+// update gym
 exports.update = async (req, res) => {
     const id = req.params.id;
     try {
@@ -67,26 +67,26 @@ exports.update = async (req, res) => {
     };
 };
 
-// // delete user
-// exports.delete = (req, res) => {
-//     try {
-//         User.destroy({
-//             where: { id: req.params.id }
-//         })
-//             .then(rowDeleted => {
-//                 if (rowDeleted == 1) {
-//                     res.status(200).send({
-//                         message: "Deleted successfully"
-//                     });
-//                 } else {
-//                     res.send({
-//                         message: "Cannot delete. Possibly not found"
-//                     })
-//                 }
-//             })
-//     } catch (error) {
-//         res.status(500).send({
-//             message: "Error: user not deleted"
-//         });
-//     };
-// };
+// delete gym
+exports.delete = (req, res) => {
+    try {
+        Gym.destroy({
+            where: { id: req.params.id }
+        })
+            .then(rowDeleted => {
+                if (rowDeleted == 1) {
+                    res.status(200).send({
+                        message: "Deleted successfully"
+                    });
+                } else {
+                    res.send({
+                        message: "Cannot delete. Possibly not found"
+                    })
+                }
+            })
+    } catch (error) {
+        res.status(500).send({
+            message: "Error: gym not deleted"
+        });
+    };
+};
