@@ -35,13 +35,13 @@ module.exports = (sequelize, Sequelize) => {
             min: 1,
             max: 30
         },
-        // wall_section_id: {
-        //     type: Sequelize.INTEGER,
-        //     references: {
-        //         model: 'wall_sections',
-        //         key: 'id'
-        //     }
-        // },
+        gym_wall_section_id: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: 'gym_wall_sections',
+                key: 'id'
+            }
+        },
         setter_id: {
             type: Sequelize.INTEGER,
             references: {

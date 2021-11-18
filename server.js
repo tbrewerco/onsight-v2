@@ -34,5 +34,8 @@ require("./app/routes/gym_routes.js")(app);
 // climbing route routes
 require("./app/routes/climbing_route_routes.js")(app);
 
+// gym wall section routes
+require("./app/routes/gym_wall_section_routes.js")(app);
+
 // set port and listen for requests
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
