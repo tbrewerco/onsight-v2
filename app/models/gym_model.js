@@ -33,17 +33,17 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.GEOMETRY('POINT', 4326)
         },
         has_boulders: {
-            type: Sequelize.BOOLEAN,
+            type: Sequelize.ENUM('yes', 'no'),
             allowNull: true,
             defaultValue: null
         },
         has_sport_routes: {
-            type: Sequelize.BOOLEAN,
+            type: Sequelize.ENUM('yes', 'no'),
             allowNull: true,
             defaultValue: null
         },
         has_auto_belays: {
-            type: Sequelize.BOOLEAN,
+            type: Sequelize.ENUM('yes', 'no'),
             allowNull: true,
             defaultValue: null
         },
