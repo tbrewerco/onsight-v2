@@ -76,7 +76,7 @@ exports.delete = (req, res) => {
                     });
                 } else {
                     res.send({
-                        message: "Cannot delete. Possibly not found"
+                        message: "Cannot delete."
                     })
                 }
             })
