@@ -59,6 +59,10 @@ module.exports = (sequelize, Sequelize) => {
         image_url: {
             type: Sequelize.STRING,
             unique: true
+        },
+        is_boulder_or_rope_climb: {
+            type: Sequelize.ENUM('rope', 'boulder'),
+            allowNull: false
         }
     });
     return Climbing_route;

@@ -53,6 +53,7 @@ CREATE TABLE `climbing_routes` (
   `image_url` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
+  `is_boulder_or_rope_climb` enum('rope','boulder') NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `image_url` (`image_url`),
   KEY `setter_id` (`setter_id`),
