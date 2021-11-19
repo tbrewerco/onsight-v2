@@ -62,6 +62,7 @@ CREATE TABLE `climbing_routes` (
   CONSTRAINT `climbing_routes_ibfk_2` FOREIGN KEY (`gym_id`) REFERENCES `gyms` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- create gym_wall_sections table
 CREATE TABLE `gym_wall_sections` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -73,3 +74,9 @@ CREATE TABLE `gym_wall_sections` (
   KEY `gym_id` (`gym_id`),
   CONSTRAINT `gym_wall_sections_ibfk_1` FOREIGN KEY (`gym_id`) REFERENCES `gyms` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- create user_ticks table
+
+-- create user_favorite_routes table
+
+-- create user_favorite_gyms table
