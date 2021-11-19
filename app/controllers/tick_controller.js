@@ -1,5 +1,6 @@
 const db = require("../models");
 const Tick = db.ticks;
+const User_tick = db.user_ticks;
 const Op = db.Sequelize.Op;
 
 // create tick
@@ -16,7 +17,14 @@ exports.create = async (req, res) => {
             route_id: req.body.route_id,
             user_id: req.body.user_id,
         });
-        res.send(tick);
+        // create row in user_ticks (join table) when tick created
+        const tick_id = tick.id;
+        const user_id = tick.user_id;
+        const user_tick = await User_tick.create({
+            user_id: user_id,
+            tick_id: tick_id
+        })
+        res.status(200).send({ tick, user_tick });
     } catch (error) {
         res.send({
             "Error": error
