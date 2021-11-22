@@ -45,6 +45,7 @@ exports.delete = (req, res) => {
     }
 
     try {
+        // delete on user_favorite_route by id
         if (req.params.id) {
             User_favorite_route.destroy({
                 where: { id: req.params.id }
@@ -56,6 +57,7 @@ exports.delete = (req, res) => {
                 };
             });
         }
+        // delete all of a user's favorite_routes by user id
         if (req.params.user_id) {
             User_favorite_route.destroy({
                 where: { user_id: req.params.user_id }
@@ -73,28 +75,3 @@ exports.delete = (req, res) => {
         });
     };
 };
-// // delete a user_favorite_route
-// exports.delete = (req, res) => {
-//     try {
-//         User_favorite_route.destroy({
-//             where: { id: req.params.id }
-//         })
-//             .then(rowDeleted => {
-//                 if (rowDeleted == 1) {
-//                     res.status(200).send({
-//                         message: "Deleted successfully"
-//                     });
-//                 } else {
-//                     res.send({
-//                         message: "Cannot delete."
-//                     });
-//                 };
-//             });
-//     } catch (error) {
-//         res.status(500).send({
-//             message: "Error: tick not deleted"
-//         });
-//     };
-// };
-
-// delete all of a user's favorite routes
