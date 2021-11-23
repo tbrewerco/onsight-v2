@@ -32,17 +32,18 @@ exports.findAll = async (req, res) => {
 // delete a user_favorite_route
 exports.delete = (req, res) => {
 
+    // successful status
     const didDelete = () => {
         res.status(200).send({
             message: "Deleted successfully"
         });
     };
-
+    // unsuccessful status
     const didNotDelete = () => {
         res.send({
             message: "Cannot delete."
         });
-    }
+    };
 
     try {
         // delete on user_favorite_route by id
@@ -56,7 +57,7 @@ exports.delete = (req, res) => {
                     didNotDelete();
                 };
             });
-        }
+        };
         // delete all of a user's favorite_routes by user id
         if (req.params.user_id) {
             User_favorite_route.destroy({
@@ -68,7 +69,7 @@ exports.delete = (req, res) => {
                     didNotDelete();
                 };
             });
-        }
+        };
     } catch (error) {
         res.status(500).send({
             message: "Error: user favorite not deleted", error
