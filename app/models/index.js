@@ -25,5 +25,6 @@ db.gym_wall_sections = require("./gym_wall_section_model.js")(sequelize, Sequeli
 db.ticks = require("./tick_model.js")(sequelize, Sequelize);
 db.user_ticks = require("./user_tick_model.js")(sequelize, Sequelize);
 db.user_favorite_routes = require("./user_favorite_route_model.js")(sequelize, Sequelize);
+db.user_favorite_gyms = require("./user_favorite_gym_model.js")(sequelize, Sequelize);
 
 module.exports = db;

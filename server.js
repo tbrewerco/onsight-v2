@@ -46,5 +46,8 @@ require("./app/routes/user_tick_routes.js")(app);
 // user_favorite_routes (join table) routes
 require("./app/routes/user_favorite_route_routes.js")(app);
 
+// user_favorite_gyms (join table) routes
+require("./app/routes/user_favorite_gym_routes.js")(app);
+
 // set port and listen for requests
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
