@@ -1,4 +1,4 @@
-require("dotenv").config({ path: '../.env'});
+require("dotenv").config({ path: './.env' });
 
 const mysql = require('mysql2');
 const migration = require('mysql-migrations');
@@ -15,4 +15,4 @@ const connection = mysql.createPool({
     database: `${DATABASE}`
 });
 
-migration.init(connection, __dirname + '/');
+migration.init(connection, __dirname + '/migrations');

@@ -29,23 +29,24 @@ CREATE TABLE `climbing_routes` (
   `is_auto_belay` enum('yes','no') NOT NULL,
   `is_lead_climb` enum('yes','no') NOT NULL,
   `is_boulder` enum('yes','no') NOT NULL,
+  `is_boulder_or_rope_climb` enum('rope','boulder') NOT NULL,
   `hold_color` varchar(255) NOT NULL,
   `setter_grade` int DEFAULT NULL,
   `gym_wall_section_id` int DEFAULT NULL,
   `setter_id` int DEFAULT NULL,
   `gym_id` int DEFAULT NULL,
   `image_url` varchar(255) DEFAULT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  `is_boulder_or_rope_climb` enum('rope','boulder') NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_deleted` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `image_url` (`image_url`),
   KEY `gym_wall_section_id` (`gym_wall_section_id`),
   KEY `setter_id` (`setter_id`),
   KEY `gym_id` (`gym_id`),
-  CONSTRAINT `climbing_routes_ibfk_1` FOREIGN KEY (`gym_wall_section_id`) REFERENCES `gym_wall_sections` (`id`),
-  CONSTRAINT `climbing_routes_ibfk_2` FOREIGN KEY (`setter_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `climbing_routes_ibfk_3` FOREIGN KEY (`gym_id`) REFERENCES `gyms` (`id`)
+  CONSTRAINT `climbing_routes_ibfk_1_gym_wall_sections` FOREIGN KEY (`gym_wall_section_id`) REFERENCES `gym_wall_sections` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `climbing_routes_ibfk_2_setter` FOREIGN KEY (`setter_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `climbing_routes_ibfk_3_gym` FOREIGN KEY (`gym_id`) REFERENCES `gyms` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -60,12 +61,13 @@ CREATE TABLE `gym_wall_sections` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `gym_id` int DEFAULT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_deleted` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `gym_id` (`gym_id`),
-  CONSTRAINT `gym_wall_sections_ibfk_1` FOREIGN KEY (`gym_id`) REFERENCES `gyms` (`id`)
+  CONSTRAINT `gym_wall_sections_ibfk_1_gym` FOREIGN KEY (`gym_id`) REFERENCES `gyms` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -89,13 +91,14 @@ CREATE TABLE `gyms` (
   `has_auto_belays` enum('yes','no') NOT NULL,
   `photo_url` varchar(255) DEFAULT NULL,
   `created_by` int DEFAULT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_deleted` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `photo_url` (`photo_url`),
   KEY `created_by` (`created_by`),
-  CONSTRAINT `gyms_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`)
+  CONSTRAINT `gyms_ibfk_1_user` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -124,10 +127,11 @@ CREATE TABLE `route_tags` (
   `route_id` int DEFAULT NULL,
   `tag` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_deleted` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `route_id` (`route_id`),
-  CONSTRAINT `route_tags_ibfk_1` FOREIGN KEY (`route_id`) REFERENCES `climbing_routes` (`id`)
+  CONSTRAINT `route_tags_ibfk_1_climbing_route` FOREIGN KEY (`route_id`) REFERENCES `climbing_routes` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -149,15 +153,16 @@ CREATE TABLE `ticks` (
   `gym_id` int DEFAULT NULL,
   `route_id` int DEFAULT NULL,
   `user_id` int DEFAULT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_deleted` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `gym_id` (`gym_id`),
   KEY `route_id` (`route_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `ticks_ibfk_1` FOREIGN KEY (`gym_id`) REFERENCES `gyms` (`id`),
-  CONSTRAINT `ticks_ibfk_2` FOREIGN KEY (`route_id`) REFERENCES `climbing_routes` (`id`),
-  CONSTRAINT `ticks_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `ticks_ibfk_1_gym` FOREIGN KEY (`gym_id`) REFERENCES `gyms` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `ticks_ibfk_2_climbing_route` FOREIGN KEY (`route_id`) REFERENCES `climbing_routes` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `ticks_ibfk_3_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -172,13 +177,14 @@ CREATE TABLE `user_favorite_gyms` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `gym_id` int DEFAULT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_deleted` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `gym_id` (`gym_id`),
-  CONSTRAINT `user_favorite_gyms_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `user_favorite_gyms_ibfk_2` FOREIGN KEY (`gym_id`) REFERENCES `gyms` (`id`)
+  CONSTRAINT `user_favorite_gyms_ibfk_1_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `user_favorite_gyms_ibfk_2_gym` FOREIGN KEY (`gym_id`) REFERENCES `gyms` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -193,13 +199,14 @@ CREATE TABLE `user_favorite_routes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `route_id` int DEFAULT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_deleted` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `route_id` (`route_id`),
-  CONSTRAINT `user_favorite_routes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `user_favorite_routes_ibfk_2` FOREIGN KEY (`route_id`) REFERENCES `climbing_routes` (`id`)
+  CONSTRAINT `user_favorite_routes_ibfk_1_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `user_favorite_routes_ibfk_2_climbing_route` FOREIGN KEY (`route_id`) REFERENCES `climbing_routes` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -214,13 +221,14 @@ CREATE TABLE `user_ticks` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `tick_id` int DEFAULT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_deleted` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `tick_id` (`tick_id`),
-  CONSTRAINT `user_ticks_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `user_ticks_ibfk_2` FOREIGN KEY (`tick_id`) REFERENCES `ticks` (`id`)
+  CONSTRAINT `user_ticks_ibfk_1_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `user_ticks_ibfk_2_tick` FOREIGN KEY (`tick_id`) REFERENCES `ticks` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -240,8 +248,9 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `profile_photo_url` varchar(255) DEFAULT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_deleted` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `profile_photo_url` (`profile_photo_url`)
@@ -257,4 +266,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-23 15:54:37
+-- Dump completed on 2021-11-24 16:45:37
