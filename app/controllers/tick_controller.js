@@ -72,29 +72,23 @@ exports.update = async (req, res) => {
     };
 };
 
-// delete tick
+// delete a tick by id
 exports.delete = (req, res) => {
     const tick_id = req.params.id;
     try {
-        // delete record from user_ticks join table
-        User_tick.destroy({
-            where: { tick_id: tick_id }
-        })
-            .then(rowDeleted => {
-                if (rowDeleted == 1) {
-                    // delete tick from ticks table
-                    Tick.destroy({
-                        where: { id: tick_id}
-                    })
-                    res.status(200).send({
-                        message: "Deleted successfully"
-                    });
-                } else {
-                    res.send({
-                        message: "Cannot delete."
-                    });
-                };
-            });
+        Tick.destroy({
+            where: { id: tick_id }
+        }).then(rowDeleted => {
+            if (rowDeleted == 1) {
+                res.status(200).send({
+                    message: "Deleted successfully"
+                });
+            } else {
+                res.send({
+                    message: "Cannot delete."
+                });
+            };
+        });
     } catch (error) {
         res.status(500).send({
             message: "Error: tick not deleted"
