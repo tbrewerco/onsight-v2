@@ -3,7 +3,7 @@ require("dotenv").config({ path: './.env' });
 const mysql = require("mysql2");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
-const jsSeedQuery = require("./seed.js");
+const jsSeedQuery = require("../../db/seed.js");
 
 // .env variables
 const USER = process.env.DB_USER;
@@ -36,10 +36,10 @@ const tick = jsSeedQuery.tick;
 const user = jsSeedQuery.user;
 
 // run sql seed query from seed.js (jsSeedQuery)
-connection.query(jsSeedQuery, [hash], error => {
-    if (error) {
-        throw error
-    };
-    connection.end();
-    console.log(`Seed complete.`);
-});
+// connection.query(jsSeedQuery, [hash], error => {
+//     if (error) {
+//         throw error
+//     };
+//     connection.end();
+//     console.log(`Seed complete.`);
+// });

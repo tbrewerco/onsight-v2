@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../..");
 const Route_tag = db.route_tags;
 const Op = db.Sequelize.Op;
 

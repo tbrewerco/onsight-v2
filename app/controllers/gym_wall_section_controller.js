@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../..");
 const Gym_wall_section = db.gym_wall_sections;
 const Op = db.Sequelize.Op;
 

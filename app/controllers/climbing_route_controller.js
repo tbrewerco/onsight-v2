@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../..");
 const Climbing_route = db.climbing_routes;
 const Op = db.Sequelize.Op;
 

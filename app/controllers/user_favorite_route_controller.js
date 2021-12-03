@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../..");
 const User_favorite_route = db.user_favorite_routes;
 const Op = db.Sequelize.Op;
 
