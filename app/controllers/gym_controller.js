@@ -1,38 +1,31 @@
 const gymRepo = require("../repositories/gym_repo");
 
-// create gym
 exports.create = async (req, res) => {
     try {
-        const gym = await gymRepo.create(req.body);
+        const gym = await gymRepo.createGym(req.body);
         res.status(200).send(gym);
     } catch (error) {
         throw new Error(error.message);
     };
 };
 
-// get all gyms
 exports.findAll = async (req, res) => {
     try {
-        const gyms = await Gym.findAll();
+        const gyms = await gymRepo.findAllGyms();
         res.send(gyms);
     } catch (error) {
-        res.send(error)
+        throw new Error(error.message);
     };
 };
 
-// get a gym by Id
 exports.findOne = async (req, res) => {
     try {
-        const gym = await Gym.findByPk(req.params.id);
-        if (gym === null) {
-            throw error;
-        } else {
-            res.send(gym)
-        };
+        const gym = await gymRepo.findGymById(req.params.id);
+        gym.length >= 1 ? res.send(gym) : new Error(error.message = "Not found");
+        // res.send(gym);
     } catch (error) {
-        res.send({
-            "Error": "No gym found"
-        });
+        throw new Error;
+
     };
 };
 

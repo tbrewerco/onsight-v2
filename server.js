@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 4000;
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const db = require("./app/models");
+const db = require(".");
 
 const corsOptions = {
     origin: "http://localhost:3001"

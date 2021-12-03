@@ -1,42 +1,44 @@
-const { sequelize } = require("../models");
+const { sequelize } = require("../..");
 
 exports.create = async (newGym) => {
     try {
-        const gym = {
-            name: newGym.name,
-            addressStreet: newGym.addressStreet,
-            addressCity: newGym.addressCity,
-            addressState: newGym.addressState,
-            addressZip: newGym.addressZip,
-            addressCoordinates: newGym.addressCoordinates,
-            hasBoulders: newGym.hasBoulders,
-            hasSportRoutes: newGym.hasSportRoutes,
-            hasAutoBelays: newGym.hasAutoBelays,
-            photoUrl: newGym.photoUrl,
-            createdBy: newGym.createdBy,
-            createdAt: newGym.createdAt
-        };
         const [gymId, metadata] = await sequelize.query(
             `
             INSERT INTO gyms SET
-            name='${gym.name}',
-            address_street='${gym.addressStreet}',
-            address_city='${gym.addressCity}',
-            address_state='${gym.addressState}',
-            address_zip='${gym.addressZip}',
-            address_coordinates=ST_PointFromText('POINT(${gym.addressCoordinates.lat} ${gym.addressCoordinates.long})'),
-            has_boulders='${gym.hasBoulders}',
-            has_sport_routes='${gym.hasSportRoutes}',
-            has_auto_belays='${gym.hasAutoBelays}'
+            name='${newGym.name}',
+            address_street='${newGym.addressStreet}',
+            address_city='${newGym.addressCity}',
+            address_state='${newGym.addressState}',
+            address_zip='${newGym.addressZip}',
+            address_coordinates=ST_PointFromText('POINT(${newGym.addressCoordinates.lat} ${newGym.addressCoordinates.long})'),
+            has_boulders='${newGym.hasBoulders}',
+            has_sport_routes='${newGym.hasSportRoutes}',
+            has_auto_belays='${newGym.hasAutoBelays}'
             `
         );
-        return ({ gym, gymId });
+        newGym.gymId = gymId;
+        return newGym;
     } catch (error) {
         throw new Error("db error: " + error.message);
     };
 };
 
-exports.findAll = async () => {
-    const [results, metadata] = await sequelize.query("SELECT * FROM gyms");
-    return results;
+exports.findAllGyms = async () => {
+    try {
+        const [gyms, metadata] = await sequelize.query(`SELECT * FROM gyms`);
+        return gyms;
+    } catch (error) {
+        throw new Error("db error: " + error.message);
+    };
+};
+
+exports.findGymById = async (gymId) => {
+    try {
+        const [gym, metadata] = await sequelize.query(
+            `SELECT * FROM gyms WHERE id = ${gymId};`
+        );
+        return gym;
+    } catch (error) {
+        throw new Error(gym.length < 1 ? "Gym not found" : error.message);
+    }
 }
