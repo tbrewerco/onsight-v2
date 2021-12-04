@@ -12,6 +12,7 @@ exports.create = async (req, res) => {
 exports.findAll = async (req, res) => {
     try {
         const gyms = await gymRepo.findAllGyms();
+        // console.log(gyms);
         res.send(gyms);
     } catch (error) {
         throw new Error(error.message);
