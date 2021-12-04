@@ -1,66 +1,23 @@
-module.exports = (sequelize, Sequelize) => {
-    const Gym = sequelize.define("gym", {
-        name: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            unique: true,
-            notEmpty: true,
-        },
-        address_street: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            notEmpty: true
-        },
-        address_city: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            notEmpty: true,
-            isAlpha: true,
-        },
-        address_state: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            notEmpty: true,
-            isAlpha: true,
-        },
-        address_zip: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            notEmpty: true,
-            isNumeric: true,
-        },
-        address_coordinates: {
-            type: Sequelize.GEOMETRY('POINT', 4326)
-        },
-        has_boulders: {
-            type: Sequelize.ENUM('yes', 'no'),
-            allowNull: true,
-            defaultValue: null
-        },
-        has_sport_routes: {
-            type: Sequelize.ENUM('yes', 'no'),
-            allowNull: true,
-            defaultValue: null
-        },
-        has_auto_belays: {
-            type: Sequelize.ENUM('yes', 'no'),
-            allowNull: true,
-            defaultValue: null
-        },
-        photo_url: {
-            type: Sequelize.STRING,
-            unique: true,
-            validate: {
-                isUrl: { msg: "Invalid URL" }
-            }
-        },
-        created_by: {
-            type: Sequelize.INTEGER,
-            references: {
-                model: 'users',
-                key: 'id'
-            }
-        }
-    });
-    return Gym;
+export class Gym {
+    constructor(name, addressStreet, addressCity, addressState, addressZip, addressCoordinates, hasBoulders, hasSportRoutes, hasAutoBelays, photoUrl, createdBy, isDeleted) {
+        this.name = name;
+        this.addressStreet = addressStreet;
+        this.addressCity = addressCity;
+        this.addressState = addressState;
+        this.addressZip = addressZip;
+        this.addressCoordinates = addressCoordinates;
+        this.hasBoulders = hasBoulders;
+        this.hasSportRoutes = hasSportRoutes;
+        this.hasAutoBelays = hasAutoBelays;
+        this.photoUrl = photoUrl;
+        this.createdBy = createdBy;
+        this.isDeleted = isDeleted;
+    }
+
+    // create
+    // get all
+    // get all by attribute (id, has_whatever, etc...)
+    // update
+    // delete
+
 };
