@@ -21,11 +21,9 @@ exports.findAll = async (req, res) => {
 exports.findOne = async (req, res) => {
     try {
         const gym = await gymRepo.findGymById(req.params.id);
-        gym.length >= 1 ? res.send(gym) : new Error(error.message = "Not found");
-        // res.send(gym);
+        gym.length >= 1 ? res.send(gym) : error;
     } catch (error) {
-        throw new Error;
-
+        res.send(error = "Controller Error: Not found");
     };
 };
 
