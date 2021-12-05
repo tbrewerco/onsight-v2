@@ -1,7 +1,3 @@
-const db = require("../..");
-const Route_tag = db.route_tags;
-const Op = db.Sequelize.Op;
-
 // create route_tag
 exports.create = async (req, res) => {
     try {

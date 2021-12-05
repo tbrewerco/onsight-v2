@@ -1,7 +1,3 @@
-const db = require("../..");
-const Climbing_route = db.climbing_routes;
-const Op = db.Sequelize.Op;
-
 // create climbing route
 exports.create = async (req, res) => {
     try {

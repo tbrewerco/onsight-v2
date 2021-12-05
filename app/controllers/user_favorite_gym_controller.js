@@ -1,7 +1,3 @@
-const db = require("../..");
-const User_favorite_gym = db.user_favorite_gyms;
-const Op = db.Sequelize.Op;
-
 // create user_favorite_gym
 exports.create = async (req, res) => {
     try {

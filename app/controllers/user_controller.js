@@ -1,7 +1,3 @@
-const db = require("../..");
-const User = db.users;
-const Op = db.Sequelize.Op;
-
 // create user
 exports.create = async (req, res) => {
     try {
