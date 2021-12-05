@@ -1,7 +1,7 @@
-const db = require("../models");
-const Tick = db.ticks;
-const User_tick = db.user_ticks;
-const Op = db.Sequelize.Op;
+// const db = require("../..");
+// const Tick = db.ticks;
+// const User_tick = db.user_ticks;
+// const Op = db.Sequelize.Op;
 
 // create tick
 exports.create = async (req, res) => {

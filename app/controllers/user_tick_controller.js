@@ -1,7 +1,3 @@
-const db = require("../models");
-const User_tick = db.user_ticks;
-const Op = db.Sequelize.Op;
-
 // create user_tick
 exports.create = async (req, res) => {
     try {
@@ -23,30 +19,30 @@ exports.findAll = async (req, res) => {
     // get user_tick by user_id
     if (id !== "null") {
         try {
-                const user_ticks = await User_tick.findAll({
-                    where: {
+            const user_ticks = await User_tick.findAll({
+                where: {
                     user_id: req.params.id
-                    }
+                }
             });
-                // if no user_tick found, send error
-                if (user_ticks.length === 0) {
-                    res.send({
-                        "Error": "No user_tick found by that user_id"
-                    });
-                } else {
-                    res.send(user_ticks);
-                };
+            // if no user_tick found, send error
+            if (user_ticks.length === 0) {
+                res.send({
+                    "Error": "No user_tick found by that user_id"
+                });
+            } else {
+                res.send(user_ticks);
+            };
         } catch (error) {
-        res.send(error);
-      };
-    // or get ALL user_ticks
+            res.send(error);
+        };
+        // or get ALL user_ticks
     } else {
         try {
-                const all_user_ticks = await User_tick.findAll();
-                res.send(all_user_ticks);
+            const all_user_ticks = await User_tick.findAll();
+            res.send(all_user_ticks);
         } catch (error) {
-        res.send(error)
-    };
+            res.send(error)
+        };
     };
 };
 

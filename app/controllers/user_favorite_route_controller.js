@@ -1,7 +1,3 @@
-const db = require("../models");
-const User_favorite_route = db.user_favorite_routes;
-const Op = db.Sequelize.Op;
-
 // create user_favorite_route
 exports.create = async (req, res) => {
     try {
