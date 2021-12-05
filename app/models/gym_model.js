@@ -1,4 +1,6 @@
-export class Gym {
+const gymRepo = require("../repositories/gym_repo");
+
+module.exports = class Gym {
     constructor(name, addressStreet, addressCity, addressState, addressZip, addressCoordinates, hasBoulders, hasSportRoutes, hasAutoBelays, photoUrl, createdBy, isDeleted) {
         this.name = name;
         this.addressStreet = addressStreet;
@@ -15,9 +17,21 @@ export class Gym {
     }
 
     // create
+
     // get all
+    static findAll = async (req, res) => {
+        try {
+            const gyms = gymRepo.findAllGyms();
+            return gyms;
+        } catch (error) {
+            throw new Error("Model error: " + error.message);
+        };
+    };
+
     // get all by attribute (id, has_whatever, etc...)
+
     // update
+
     // delete
 
 };

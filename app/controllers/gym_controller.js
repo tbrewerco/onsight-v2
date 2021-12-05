@@ -1,4 +1,4 @@
-const gymRepo = require("../repositories/gym_repo");
+const Gym = require("../models/gym_model.js");
 
 exports.create = async (req, res) => {
     try {
@@ -11,11 +11,10 @@ exports.create = async (req, res) => {
 
 exports.findAll = async (req, res) => {
     try {
-        const gyms = await gymRepo.findAllGyms();
-        // console.log(gyms);
+        const gyms = await Gym.findAll();
         res.send(gyms);
     } catch (error) {
-        throw new Error(error.message);
+        throw new Error("Controller error:" + error.message);
     };
 };
 
@@ -28,7 +27,6 @@ exports.findOne = async (req, res) => {
     };
 };
 
-// update gym
 exports.update = async (req, res) => {
     const id = req.params.id;
     try {
@@ -43,7 +41,6 @@ exports.update = async (req, res) => {
     };
 };
 
-// delete gym
 exports.delete = (req, res) => {
     try {
         Gym.destroy({
