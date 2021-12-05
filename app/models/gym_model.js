@@ -4,21 +4,33 @@ const zipcodes = require("zipcodes");
 const haversine = require("haversine-distance");
 
 module.exports = class Gym {
-    constructor(name, addressStreet, addressCity, addressState, addressZip, addressCoordinates, hasBoulders, hasSportRoutes, hasAutoBelays, photoUrl, createdBy, isDeleted) {
-        this.name = name;
-        this.addressStreet = addressStreet;
-        this.addressCity = addressCity;
-        this.addressState = addressState;
-        this.addressZip = addressZip;
-        this.addressCoordinates = addressCoordinates;
-        this.hasBoulders = hasBoulders;
-        this.hasSportRoutes = hasSportRoutes;
-        this.hasAutoBelays = hasAutoBelays;
-        this.photoUrl = photoUrl;
-        this.createdBy = createdBy;
-        this.isDeleted = isDeleted;
+    constructor(data) {
+        this.name = data.name;
+        this.addressStreet = data.addressStreet;
+        this.addressCity = data.addressCity;
+        this.addressState = data.addressState;
+        this.addressZip = data.addressZip;
+        this.addressCoordinates = data.addressCoordinates;
+        this.hasBoulders = data.hasBoulders;
+        this.hasSportRoutes = data.hasSportRoutes;
+        this.hasAutoBelays = data.hasAutoBelays;
+        this.photoUrl = data.photoUrl;
+        this.createdBy = data.createdBy;
+        this.isDeleted = data.isDeleted;
     }
 
+    // create 
+    create = async (newGym) => {
+        try {
+            const gymId = await gymRepo.create(newGym);
+            newGym.id = gymId
+            return newGym;
+        } catch (error) {
+            throw new Error(error.message);
+        };
+    };
+
+    // get all gyms
     static getMilesFromMeters = (meters) => {
         return meters * 0.000621371192;
     };
@@ -44,9 +56,9 @@ module.exports = class Gym {
         }
     };
 
-    findUserDistanceWithCoordinates(req, gyms) {
+    static findUserDistanceWithCoordinates(reqQuery, gyms) {
+        const userLocation = { latitude: reqQuery.lat, longitude: reqQuery.long }
         gyms = gyms.map(gym => {
-            const userLocation = { latitude: req.query.lat, longitude: req.query.long }
             this.getUserDistanceFromGym(gym, userLocation);
             return gym;
         })
@@ -60,7 +72,7 @@ module.exports = class Gym {
                 return this.findUserDistanceWithZipCode(reqQuery, gyms);
             }
             else if (reqQuery.lat && reqQuery.long) {
-                findUserDistanceWithCoordinates(reqQuery, gyms)
+                return this.findUserDistanceWithCoordinates(reqQuery, gyms)
             } else {
                 const gyms = await baseRepo.findAll("gyms");
                 return gyms;
@@ -70,9 +82,7 @@ module.exports = class Gym {
         };
     };
 
-
-
-    // get all by attribute (id, has_whatever, etc...)
+    // get one
 
     // update
 
