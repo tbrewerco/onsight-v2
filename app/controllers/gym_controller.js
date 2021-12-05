@@ -11,7 +11,8 @@ exports.create = async (req, res) => {
 
 exports.findAll = async (req, res) => {
     try {
-        const gyms = await Gym.findAll();
+        const reqQuery = req.query;
+        const gyms = await Gym.findAll(reqQuery);
         res.send(gyms);
     } catch (error) {
         throw new Error("Controller error:" + error.message);
