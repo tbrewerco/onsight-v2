@@ -1,6 +1,5 @@
 const { connection, mysql } = require("../../db/index.js");
 
-// get all
 exports.findAll = async (tableName) => {
     connection.getConnection(function (error) {
         if (error) throw (error);
@@ -17,6 +16,22 @@ exports.findAll = async (tableName) => {
     });
 };
 
-// get all by attribute
+exports.findByAttribute = async (tableName, attribute, reqParams) => {
+    connection.getConnection(function (error) {
+        if (error) throw (error);
+    });
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT * FROM ${tableName} WHERE ${attribute} = ?;`;
+        connection.query(sql, [
+            reqParams
+        ], (error, result) => {
+            if (error) {
+                return reject("db error: " + error.message);
+            } else {
+                return resolve(result);
+            };
+        });
+    });
+};
 
 // delete

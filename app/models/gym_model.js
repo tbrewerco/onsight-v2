@@ -83,6 +83,14 @@ module.exports = class Gym {
     };
 
     // get one
+    static findOne = async (reqParams) => {
+        try {
+            const gym = await baseRepo.findByAttribute("gyms", "id", reqParams);
+            return gym.length > 0 ? gym : { Error: "Error: No record found" };
+        } catch (error) {
+            throw new Error("Model error: " + error.message);
+        };
+    };
 
     // update
 

@@ -21,14 +21,15 @@ exports.findAll = async (req, res) => {
     };
 };
 
-// exports.findOne = async (req, res) => {
-//     try {
-//         const gym = await gymRepo.findGymById(req.params.id);
-//         gym.length >= 1 ? res.send(gym) : error;
-//     } catch (error) {
-//         res.send(error = "Controller Error: Not found");
-//     };
-// };
+exports.findOne = async (req, res) => {
+    try {
+        const reqParams = req.params.id;
+        const gym = await Gym.findOne(reqParams);
+        res.send(gym);
+    } catch (error) {
+        throw new Error("Controller error:" + error.message);;
+    };
+};
 
 // exports.update = async (req, res) => {
 //     const id = req.params.id;
