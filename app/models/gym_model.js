@@ -86,14 +86,25 @@ module.exports = class Gym {
     static findOne = async (reqParams) => {
         try {
             const gym = await baseRepo.findByAttribute("gyms", "id", reqParams);
-            return gym.length > 0 ? gym : { Error: "Error: No record found" };
+            if (gym.length > 0) {
+                return gym;
+            } else {
+                throw new Error("No record found");
+            }
         } catch (error) {
-            throw new Error("Model error: " + error.message);
+            throw new Error("Model error:" + error.message);
         };
     };
 
     // update
 
     // delete
-
+    static delete = async (id) => {
+        try {
+            await baseRepo.delete("gyms", id);
+            return id;
+        } catch (error) {
+            throw new Error("Model error: " + error.message);
+        };
+    };
 };

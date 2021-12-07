@@ -7,7 +7,7 @@ exports.create = async (req, res) => {
         const gym = await newGym.create(newGym);
         res.status(200).send(gym);
     } catch (error) {
-        throw new Error("Controller error:" + error.message);
+        res.status(500).send("Controller error:" + error.message);
     };
 };
 
@@ -17,7 +17,7 @@ exports.findAll = async (req, res) => {
         const gyms = await Gym.findAll(reqQuery);
         res.send(gyms);
     } catch (error) {
-        throw new Error("Controller error:" + error.message);
+        res.status(500).send("Controller error:" + error.message);
     };
 };
 
@@ -27,7 +27,7 @@ exports.findOne = async (req, res) => {
         const gym = await Gym.findOne(reqParams);
         res.send(gym);
     } catch (error) {
-        throw new Error("Controller error:" + error.message);;
+        res.status(500).send("Controller error:" + error.message);;
     };
 };
 
@@ -45,25 +45,11 @@ exports.findOne = async (req, res) => {
 //     };
 // };
 
-// exports.delete = (req, res) => {
-//     try {
-//         Gym.destroy({
-//             where: { id: req.params.id }
-//         })
-//             .then(rowDeleted => {
-//                 if (rowDeleted == 1) {
-//                     res.status(200).send({
-//                         message: "Deleted successfully"
-//                     });
-//                 } else {
-//                     res.send({
-//                         message: "Cannot delete."
-//                     })
-//                 }
-//             })
-//     } catch (error) {
-//         res.status(500).send({
-//             message: "Error: gym not deleted"
-//         });
-//     };
-// };
+exports.delete = async (req, res) => {
+    try {
+        await Gym.delete(req.params.id);
+        res.status(200).send("Deleted successfully")
+    } catch (error) {
+        res.status(500).send(error.message);
+    };
+};

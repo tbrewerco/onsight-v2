@@ -42,4 +42,23 @@ exports.findByAttribute = async (tableName, attribute, reqParams) => {
     };
 };
 
-// delete
+exports.delete = async (tableName, id) => {
+    connection.getConnection(function (error) {
+        if (error) throw (error);
+    });
+    return new Promise((resolve, reject) => {
+        const sql = `DELETE FROM ?? WHERE id = ?;`;
+        const allowedTables = ["climbing_routes", "gym_wall_sections", "gyms", "route_tags", "ticks", "user_favorite_gyms", "user_favorite_routes", "user_ticks"];
+        if (allowedTables.includes(tableName)) {
+            connection.query(sql, [tableName, id], (error, result, fields) => {
+                if (error) {
+                    return reject("db error: " + error.message);
+                } else {
+                    return resolve(result);
+                };
+            });
+        } else {
+            throw new Error("db error: invalid query");
+        };
+    });
+};
