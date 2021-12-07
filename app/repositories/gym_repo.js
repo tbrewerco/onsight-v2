@@ -34,3 +34,36 @@ exports.create = async (newGym) => {
 };
 
 // update
+exports.update = async (data, id) => {
+    console.log(data.name)
+    connection.getConnection(function (error) {
+        if (error) throw (error);
+    });
+    return new Promise((resolve, reject) => {
+        const sql = `
+        UPDATE gyms SET
+        name= ?,
+        address_street= ?,
+        address_city= ?,
+        address_state= ?,
+        address_zip= ?,
+        has_boulders= ?,
+        has_sport_routes= ?,
+        has_auto_belays= ?,
+        photo_url= ?, 
+        created_by= ?
+        WHERE id = ${id}
+        `;
+        connection.query(sql,
+            [
+                data.name, data.addressStreet, data.addressCity, data.addressState, data.addressZip, data.hasBoulders, data.hasSportRoutes, data.hasAutoBelays, data.photoUrl, data.createdBy
+            ],
+            (error, result, fields) => {
+                if (error) {
+                    throw new Error("DB Error: " + error);
+                } else {
+                    return resolve(result)
+                };
+            });
+    });
+};

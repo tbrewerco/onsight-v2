@@ -97,6 +97,14 @@ module.exports = class Gym {
     };
 
     // update
+    static update = async (data, id) => {
+        try {
+            await gymRepo.update(data, id);
+            return data;
+        } catch (error) {
+            throw new Error("Model error:" + error.message);
+        };
+    };
 
     // delete
     static delete = async (id) => {

@@ -31,19 +31,18 @@ exports.findOne = async (req, res) => {
     };
 };
 
-// exports.update = async (req, res) => {
-//     const id = req.params.id;
-//     try {
-//         await Gym.update(req.body, {
-//             where: { id: req.params.id }
-//         });
-//         res.status(200).send({
-//             message: "Updated successfully"
-//         });
-//     } catch (error) {
-//         res.send(error);
-//     };
-// };
+exports.update = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = req.body;
+        await Gym.update(data, id);
+        res.status(200).send({
+            message: "Updated successfully"
+        });
+    } catch (error) {
+        res.send(error);
+    };
+};
 
 exports.delete = async (req, res) => {
     try {
