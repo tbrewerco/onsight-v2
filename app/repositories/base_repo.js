@@ -1,12 +1,34 @@
 const { connection, mysql } = require("../../db/index.js");
 
+const allTables = [
+    climbingRoutesTable = "climbing_routes",
+    gymWallSectionsTable = "gym_wall_sections",
+    gymsTable = "gyms",
+    routeTagsTable = "route_tags",
+    ticksTable = "ticks",
+    userFavoriteGymsTable = "user_favorite_gyms",
+    userFavoriteRoutesTable = "user_favorite_routes",
+    userTicksTable = "user_ticks",
+    usersTable = "users"
+];
+
+const allowedTables = [
+    climbingRoutesTable,
+    gymWallSectionsTable,
+    gymsTable,
+    routeTagsTable,
+    ticksTable,
+    userFavoriteGymsTable,
+    userFavoriteRoutesTable,
+    userTicksTable
+];
+
 exports.findAll = async (tableName) => {
     connection.getConnection(function (error) {
         if (error) throw (error);
     });
     return new Promise((resolve, reject) => {
         const sql = `SELECT * FROM ${tableName};`;
-        const allowedTables = ["climbing_routes", "gym_wall_sections", "gyms", "route_tags", "ticks"];
         if (allowedTables.includes(tableName)) {
             connection.execute(sql, [tableName], (error, result, fields) => {
                 if (error) {
@@ -16,13 +38,12 @@ exports.findAll = async (tableName) => {
                 };
             });
         } else {
-            throw new Error("db error: invalid query");
+            throw new Error(`db error: unknown table name ${tableName}`);
         };
     });
 };
 
 exports.findByAttribute = async (tableName, attribute, reqParams) => {
-    const allowedTables = ["climbing_routes", "gym_wall_sections", "gyms", "route_tags", "ticks", "user_favorite_gyms", "user_favorite_routes", "user_ticks"];
     if (allowedTables.includes(tableName)) {
         connection.getConnection(function (error) {
             if (error) throw (error);
@@ -48,7 +69,6 @@ exports.delete = async (tableName, id) => {
     });
     return new Promise((resolve, reject) => {
         const sql = `DELETE FROM ?? WHERE id = ?;`;
-        const allowedTables = ["climbing_routes", "gym_wall_sections", "gyms", "route_tags", "ticks", "user_favorite_gyms", "user_favorite_routes", "user_ticks"];
         if (allowedTables.includes(tableName)) {
             connection.query(sql, [tableName, id], (error, result, fields) => {
                 if (error) {
