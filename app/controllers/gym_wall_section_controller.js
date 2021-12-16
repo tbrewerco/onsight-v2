@@ -1,7 +1,3 @@
-const db = require("../models");
-const Gym_wall_section = db.gym_wall_sections;
-const Op = db.Sequelize.Op;
-
 // create gym wall section
 exports.create = async (req, res) => {
     try {
