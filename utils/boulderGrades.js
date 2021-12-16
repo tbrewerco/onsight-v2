@@ -1,4 +1,4 @@
-export default boulder_grades = {
+export default boulderGrades = {
     1: "VB",
     2: "V0",
     3: "V1",

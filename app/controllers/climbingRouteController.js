@@ -1,11 +1,11 @@
-const db = require("../models");
-const Climbing_route = db.climbing_routes;
+const db = require("../../db/index.js");
+const ClimbingRoute = db.climbingRoutes;
 const Op = db.Sequelize.Op;
 
 // create climbing route
 exports.create = async (req, res) => {
     try {
-        const climbing_route = await Climbing_route.create({
+        const climbingRoute = await ClimbingRoute.create({
             name: req.body.name,
             is_top_rope: req.body.is_top_rope,
             is_auto_belay: req.body.is_auto_belay,
@@ -18,19 +18,17 @@ exports.create = async (req, res) => {
             gym_id: req.body.gym_id,
             image_url: req.body.image_url
         });
-        res.send(climbing_route);
+        res.send(climbingRoute);
     } catch (error) {
-        res.send({
-            "Error": error
-        });
+        res.status(500).send("Controller error:" + error.message)
     };
 };
 
 // get all climbing routes
 exports.findAll = async (req, res) => {
     try {
-        const climbing_routes = await Climbing_route.findAll();
-        res.send(climbing_routes);
+        const climbingRoutes = await ClimbingRoute.findAll();
+        res.send(climbingRoutes);
     } catch (error) {
         res.send(error)
     };
@@ -39,11 +37,11 @@ exports.findAll = async (req, res) => {
 // get a climbing route by Id
 exports.findOne = async (req, res) => {
     try {
-        const climbing_route = await Climbing_route.findByPk(req.params.id);
-        if (climbing_route === null) {
+        const climbingRoute = await ClimbingRoute.findByPk(req.params.id);
+        if (climbingRoute === null) {
             throw error;
         } else {
-            res.send(climbing_route)
+            res.send(climbingRoute)
         };
     } catch (error) {
         res.send({
@@ -56,7 +54,7 @@ exports.findOne = async (req, res) => {
 exports.update = async (req, res) => {
     const id = req.params.id;
     try {
-        await Climbing_route.update(req.body, {
+        await climbingRoute.update(req.body, {
             where: { id: req.params.id }
         });
         res.status(200).send({
@@ -70,7 +68,7 @@ exports.update = async (req, res) => {
 // delete climbing route
 exports.delete = (req, res) => {
     try {
-        Climbing_route.destroy({
+        climbingRoute.destroy({
             where: { id: req.params.id }
         })
             .then(rowDeleted => {
@@ -85,8 +83,8 @@ exports.delete = (req, res) => {
                 };
             });
     } catch (error) {
-        res.status(500).send({
-            message: "Error: climbing route not deleted"
-        });
+        res.status(500).send(
+            "Controller error" + error.message
+        );
     };
 };

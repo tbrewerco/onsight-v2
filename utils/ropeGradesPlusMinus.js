@@ -1,4 +1,4 @@
-export default rope_grades_plus_minus = {
+export default ropeGradesPlusMinus = {
     1: "5.4",
     2: "5.5",
     3: "5.6",

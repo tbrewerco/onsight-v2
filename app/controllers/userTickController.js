@@ -1,15 +1,15 @@
-const db = require("../models");
-const User_tick = db.user_ticks;
+const db = require("../../db/index.js");
+const UserTick = db.userTick;
 const Op = db.Sequelize.Op;
 
 // create user_tick
 exports.create = async (req, res) => {
     try {
-        const user_tick = await User_tick.create({
-            user_id: req.body.user_id,
-            tick_id: req.body.tick_id,
+        const userTick = await UserTick.create({
+            user_id: req.body.userId,
+            tick_id: req.body.tickId,
         });
-        res.send(user_tick);
+        res.send(userTick);
     } catch (error) {
         res.send({
             "Error": error
@@ -23,37 +23,37 @@ exports.findAll = async (req, res) => {
     // get user_tick by user_id
     if (id !== "null") {
         try {
-                const user_ticks = await User_tick.findAll({
-                    where: {
+            const userTicks = await UserTick.findAll({
+                where: {
                     user_id: req.params.id
-                    }
+                }
             });
-                // if no user_tick found, send error
-                if (user_ticks.length === 0) {
-                    res.send({
-                        "Error": "No user_tick found by that user_id"
-                    });
-                } else {
-                    res.send(user_ticks);
-                };
+            // if no user_tick found, send error
+            if (userTicks.length === 0) {
+                res.send({
+                    "Error": "No user_tick found by that user_id"
+                });
+            } else {
+                res.send(userTicks);
+            };
         } catch (error) {
-        res.send(error);
-      };
-    // or get ALL user_ticks
+            res.status(500).send("Controller error: " + error.message);
+        };
+        // or get ALL user_ticks
     } else {
         try {
-                const all_user_ticks = await User_tick.findAll();
-                res.send(all_user_ticks);
+            const allUserTicks = await UserTick.findAll();
+            res.send(allUserTicks);
         } catch (error) {
-        res.send(error)
-    };
+            res.send(error)
+        };
     };
 };
 
 // delete user_tick by user_tick_id
 exports.delete = (req, res) => {
     try {
-        User_tick.destroy({
+        UserTick.destroy({
             where: { id: req.params.id }
         })
             .then(rowDeleted => {

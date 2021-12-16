@@ -19,7 +19,7 @@ module.exports =
             has_sport_routes='yes',
             has_auto_belays='yes'
         `,
-    climbing_route:
+    climbingRoute:
         `
             INSERT INTO climbing_routes SET
             name='${faker.commerce.productName()}',

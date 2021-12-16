@@ -1,6 +1,6 @@
-const db = require("../models");
+const db = require("../../db/index.js");
 const Tick = db.ticks;
-const User_tick = db.user_ticks;
+const UserTick = db.userTicks;
 const Op = db.Sequelize.Op;
 
 // create tick
@@ -8,23 +8,21 @@ exports.create = async (req, res) => {
     try {
         const tick = await Tick.create({
             comment: req.body.comment,
-            did_send: req.body.did_send,
-            did_flash: req.body.did_flash,
-            did_onsight: req.body.did_onsight,
-            quality_rating: req.body.quality_rating,
-            difficulty_grade: req.body.difficulty_grade,
-            gym_id: req.body.gym_id,
-            route_id: req.body.route_id,
-            user_id: req.body.user_id,
+            did_send: req.body.didSend,
+            did_flash: req.body.didFlash,
+            did_onsight: req.body.didOnsight,
+            quality_rating: req.body.qualityRating,
+            difficulty_grade: req.body.difficultyGrade,
+            gym_id: req.body.gymId,
+            route_id: req.body.routeId,
+            user_id: req.body.userId,
         });
         // create row in user_ticks (join table) when tick created
-        const tick_id = tick.id;
-        const user_id = tick.user_id;
-        const user_tick = await User_tick.create({
-            user_id: user_id,
-            tick_id: tick_id
+        const userTick = await User_tick.create({
+            user_id: tick.user_id,
+            tick_id: tick.tick_id
         })
-        res.status(200).send({ tick, user_tick });
+        res.status(200).send({ tick, userTick });
     } catch (error) {
         res.send({
             "Error": error
@@ -74,10 +72,10 @@ exports.update = async (req, res) => {
 
 // delete a tick by id
 exports.delete = (req, res) => {
-    const tick_id = req.params.id;
+    const tickId = req.params.id;
     try {
         Tick.destroy({
-            where: { id: tick_id }
+            where: { id: tickId }
         }).then(rowDeleted => {
             if (rowDeleted == 1) {
                 res.status(200).send({

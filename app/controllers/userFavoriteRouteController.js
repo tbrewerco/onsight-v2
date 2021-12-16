@@ -1,15 +1,15 @@
-const db = require("../models");
-const User_favorite_route = db.user_favorite_routes;
+const db = require("../../db/index.js");
+const UserFavoriteRoute = db.userFavoriteRoute;
 const Op = db.Sequelize.Op;
 
 // create user_favorite_route
 exports.create = async (req, res) => {
     try {
-        const user_favorite_route = await User_favorite_route.create({
+        const userFavoriteRoute = await UserFavoriteRoute.create({
             user_id: req.body.user_id,
             route_id: req.body.route_id
         });
-        res.status(200).send(user_favorite_route);
+        res.status(200).send(userFavoriteRoute);
     } catch (error) {
         res.send({
             "Error": error
@@ -20,10 +20,10 @@ exports.create = async (req, res) => {
 // get all user_favorite_routes by user_id
 exports.findAll = async (req, res) => {
     try {
-        const user_favorite_routes = await User_favorite_route.findAll({
+        const userFavoriteRoutes = await UserFavoriteRoute.findAll({
             where: { user_id: req.params.id }
         });
-        res.send(user_favorite_routes);
+        res.send(userFavoriteRoutes);
     } catch (error) {
         res.send(error)
     };
@@ -48,7 +48,7 @@ exports.delete = (req, res) => {
     try {
         // delete on user_favorite_route by id
         if (req.params.id) {
-            User_favorite_route.destroy({
+            UserFavoriteRoute.destroy({
                 where: { id: req.params.id }
             }).then(rowDeleted => {
                 if (rowDeleted == 1) {
@@ -59,9 +59,9 @@ exports.delete = (req, res) => {
             });
         };
         // delete all of a user's favorite_routes by user id
-        if (req.params.user_id) {
-            User_favorite_route.destroy({
-                where: { user_id: req.params.user_id }
+        if (req.params.userId) {
+            UserFavoriteRoute.destroy({
+                where: { user_id: req.params.userId }
             }).then(rowDeleted => {
                 if (rowDeleted >= 1) {
                     didDelete();

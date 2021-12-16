@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../../db/index.js");
 const User = db.users;
 const Op = db.Sequelize.Op;
 
@@ -7,18 +7,17 @@ exports.create = async (req, res) => {
     try {
         const user = await User.create({
             username: req.body.username,
-            given_name: req.body.given_name,
-            family_name: req.body.family_name,
+            given_name: req.body.givenName,
+            family_name: req.body.familyName,
             role: req.body.role,
             email: req.body.email,
             password: req.body.password,
-            profile_photo_url: req.body.profile_photo_url
+            profile_photo_url: req.body.profilePhotoUrl
         });
         res.send(user);
     } catch (error) {
-        res.send({
-            "Error": error.errors[0].message
-        });
+        res.status(500).send("Controller error: " + error.message);
+
     };
 };
 
@@ -59,7 +58,7 @@ exports.update = async (req, res) => {
             message: "Updated successfully"
         });
     } catch (error) {
-        res.send(error);
+        res.status(500).send("Controller error: " + error.message);
     };
 };
 
@@ -81,8 +80,6 @@ exports.delete = (req, res) => {
                 }
             })
     } catch (error) {
-        res.status(500).send({
-            message: "Error: user not deleted"
-        });
+        res.status(500).send("Controller error: " + error.message);
     };
 };

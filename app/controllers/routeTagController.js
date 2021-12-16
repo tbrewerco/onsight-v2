@@ -1,15 +1,15 @@
-const db = require("../models");
-const Route_tag = db.route_tags;
+const db = require("../../db/index.js");
+const RouteTag = db.routeTag;
 const Op = db.Sequelize.Op;
 
-// create route_tag
+// create routeTag
 exports.create = async (req, res) => {
     try {
-        const route_tag = await Route_tag.create({
+        const routeTag = await RouteTag.create({
             route_id: req.body.route_id,
             tag: req.body.tag,
-        });
-        res.status(200).send(route_tag);
+        })
+        res.status(200).send(routeTag);
     } catch (error) {
         res.send({
             "Error": error
@@ -17,19 +17,19 @@ exports.create = async (req, res) => {
     };
 };
 
-// get all route_tags by route_id
+// get all routeTags by route_id
 exports.findAll = async (req, res) => {
     try {
-        const route_tags = await Route_tag.findAll({
+        const routeTags = await RouteTag.findAll({
             where: { route_id: req.params.id }
         });
-        res.send(route_tags);
+        res.send(routeTags);
     } catch (error) {
         res.send(error)
     };
 };
 
-// delete a route_tag or all of a route's tags
+// delete a routeTag or all of a route's tags
 exports.delete = (req, res) => {
     // successful status
     const didDelete = () => {
@@ -45,9 +45,9 @@ exports.delete = (req, res) => {
     };
 
     try {
-        // delete one route_tag by route_tag id
+        // delete one routeTag by routeTag id
         if (req.params.id) {
-            Route_tag.destroy({
+            RouteTag.destroy({
                 where: { id: req.params.id }
             }).then(rowDeleted => {
                 if (rowDeleted == 1) {
@@ -57,9 +57,9 @@ exports.delete = (req, res) => {
                 };
             });
         };
-        // delete all of a climbing routes's route_tags by route id
+        // delete all of a climbing routes's routeTags by route id
         if (req.params.route_id) {
-            Route_tag.destroy({
+            RouteTag.destroy({
                 where: { route_id: req.params.route_id }
             }).then(rowDeleted => {
                 if (rowDeleted >= 1) {

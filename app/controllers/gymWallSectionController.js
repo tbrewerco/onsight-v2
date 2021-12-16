@@ -1,15 +1,15 @@
-const db = require("../models");
-const Gym_wall_section = db.gym_wall_sections;
+const db = require("../../db/index.js");
+const GymWallSection = db.gymWallSection;
 const Op = db.Sequelize.Op;
 
 // create gym wall section
 exports.create = async (req, res) => {
     try {
-        const gym_wall_section = await Gym_wall_section.create({
+        const gymWallSection = await GymWallSection.create({
             name: req.body.name,
             gym_id: req.body.gym_id
         });
-        res.send(gym_wall_section);
+        res.send(gymWallSection);
     } catch (error) {
         res.send({
             "Error": error
@@ -20,8 +20,8 @@ exports.create = async (req, res) => {
 // get all gym wall sections
 exports.findAll = async (req, res) => {
     try {
-        const gym_wall_sections = await Gym_wall_section.findAll();
-        res.send(gym_wall_sections);
+        const gymWallSections = await GymWallSection.findAll();
+        res.send(gymWallSections);
     } catch (error) {
         res.send(error)
     };
@@ -30,11 +30,11 @@ exports.findAll = async (req, res) => {
 // get a gym wall section by Id
 exports.findOne = async (req, res) => {
     try {
-        const gym_wall_section = await Gym_wall_section.findByPk(req.params.id);
-        if (gym_wall_section === null) {
+        const gymWallSection = await GymWallSection.findByPk(req.params.id);
+        if (gymWallSection === null) {
             throw error;
         } else {
-            res.send(gym_wall_section)
+            res.send(gymWallSection)
         };
     } catch (error) {
         res.send({
@@ -46,7 +46,7 @@ exports.findOne = async (req, res) => {
 // update gym wall section
 exports.update = async (req, res) => {
     try {
-        await Gym_wall_section.update(req.body, {
+        await GymWallSection.update(req.body, {
             where: { id: req.params.id }
         });
         res.status(200).send({
@@ -60,7 +60,7 @@ exports.update = async (req, res) => {
 // delete gym wall section
 exports.delete = (req, res) => {
     try {
-        Gym_wall_section.destroy({
+        GymWallSection.destroy({
             where: { id: req.params.id }
         })
             .then(rowDeleted => {

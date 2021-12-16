@@ -1,45 +1,30 @@
-require("dotenv").config({ path: './.env' });
-
-const mysql = require("mysql2");
-const fs = require("fs");
-const bcrypt = require("bcrypt");
-const jsSeedQuery = require("./seed.js");
-
-// .env variables
-const USER = process.env.DB_USER;
-const PASSWORD = process.env.DB_PASSWORD;
-const DATABASE = process.env.DB_NAME;
-
-// connect to database
-const connection = mysql.createConnection({
-    host: '127.0.0.1',
-    user: `${USER}`,
-    password: `${PASSWORD}`,
-    database: `${DATABASE}`,
-    multipleStatements: true
+const dbConfig = require("../app/config/db_config.js").development;
+"use strict";
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
+    host: dbConfig.HOST,
+    dialect: dbConfig.dialect,
+    operatorsAliases: false,
+    pool: {
+        max: dbConfig.pool.max,
+        min: dbConfig.pool.min,
+        acquire: dbConfig.pool.acquire,
+        idle: dbConfig.pool.idle
+    }
 });
 
-connection.connect();
+const db = {};
 
-// generate random password
-const password = Math.random()
-    .toString(36)
-    .substring(2)
-const hash = bcrypt.hashSync(password, 10);
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
 
-console.log("running SQL seed... ... ...")
+db.users = require("../app/models/userModel.js")(sequelize, Sequelize);
+db.gyms = require("../app/models/gymModel.js")(sequelize, Sequelize);
+db.climbingRoutes = require("../app/models/climbingRouteModel.js")(sequelize, Sequelize);
+db.gymWallSections = require("../app/models/gymWallSectionModel.js")(sequelize, Sequelize);
+db.ticks = require("../app/models/tickModel.js")(sequelize, Sequelize);
+db.userTicks = require("../app/models/userTickModel.js")(sequelize, Sequelize);
+db.userFavoriteRoutes = require("../app/models/userFavoriteRouteModel.js")(sequelize, Sequelize);
+db.userFavoriteGyms = require("../app/models/userFavoriteGymModel.js")(sequelize, Sequelize);
 
-// seed query variables 
-const gym = jsSeedQuery.gym;
-const climbing_route = jsSeedQuery.climbing_route;
-const tick = jsSeedQuery.tick;
-const user = jsSeedQuery.user;
-
-// run sql seed query from seed.js (jsSeedQuery)
-connection.query(jsSeedQuery, [hash], error => {
-    if (error) {
-        throw error
-    };
-    connection.end();
-    console.log(`Seed complete.`);
-});
+module.exports = db;

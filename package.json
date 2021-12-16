@@ -18,11 +18,14 @@
     "express": "^4.17.1",
     "express-validator": "^6.13.0",
     "faker": "^5.5.3",
+    "haversine-distance": "^1.2.1",
     "install": "^0.13.0",
+    "lodash": "^4.17.21",
     "mysql": "^2.18.1",
     "mysql-migrations": "^1.0.7",
     "mysql2": "^2.3.3",
     "sequelize": "^6.9.0",
-    "start": "^5.1.0"
+    "start": "^5.1.0",
+    "zipcodes": "^8.0.0"
   }
 }
