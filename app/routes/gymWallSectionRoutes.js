@@ -1,12 +1,12 @@
 module.exports = app => {
-    const gym_wall_sections = require("../controllers/gymWallSectionController.js");
+    const gymWallSections = require("../controllers/gymWallSectionController.js");
     const router = require("express").Router();
 
-    router.post("/", gym_wall_sections.create);
-    router.get("/", gym_wall_sections.findAll);
-    router.get("/:id", gym_wall_sections.findOne);
-    router.patch("/:id", gym_wall_sections.update);
-    router.delete("/:id", gym_wall_sections.delete);
+    router.post("/", gymWallSections.create);
+    router.get("/", gymWallSections.findAll);
+    router.get("/:id", gymWallSections.findOne);
+    router.patch("/:id", gymWallSections.update);
+    router.delete("/:id", gymWallSections.delete);
 
-    app.use('/api/v1/gym_wall_sections', router);
+    app.use('/api/v1/gym-wall-Sections', router);
 };

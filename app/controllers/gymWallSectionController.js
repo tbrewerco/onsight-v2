@@ -9,11 +9,9 @@ exports.create = async (req, res) => {
             name: req.body.name,
             gym_id: req.body.gym_id
         });
-        res.send(gymWallSection);
+        res.status(200).send(gymWallSection);
     } catch (error) {
-        res.send({
-            "Error": error
-        });
+        res.send("Controller error: " + error.message)
     };
 };
 
@@ -21,9 +19,9 @@ exports.create = async (req, res) => {
 exports.findAll = async (req, res) => {
     try {
         const gymWallSections = await GymWallSection.findAll();
-        res.send(gymWallSections);
+        res.status(200).send(gymWallSections);
     } catch (error) {
-        res.send(error)
+        res.send("Controller error: " + error.message)
     };
 };
 
@@ -34,12 +32,10 @@ exports.findOne = async (req, res) => {
         if (gymWallSection === null) {
             throw error;
         } else {
-            res.send(gymWallSection)
+            res.status(200).send(gymWallSection);
         };
     } catch (error) {
-        res.send({
-            message: "No wall section found"
-        });
+        res.send("Controller error: " + error.message)
     };
 };
 
@@ -53,7 +49,7 @@ exports.update = async (req, res) => {
             message: "Updated successfully"
         });
     } catch (error) {
-        res.send(error);
+        res.send("Controller error: " + error.message)
     };
 };
 
@@ -75,8 +71,6 @@ exports.delete = (req, res) => {
                 };
             });
     } catch (error) {
-        res.status(500).send({
-            message: "Error: wall section not deleted"
-        });
+        res.send("Controller error: " + error.message)
     };
 };
