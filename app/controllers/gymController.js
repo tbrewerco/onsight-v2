@@ -18,11 +18,9 @@ exports.create = async (req, res) => {
             photo_url: req.body.photo_url,
             created_by: req.body.created_by
         });
-        res.send(gym);
+        res.status(200).send(gym);
     } catch (error) {
-        res.send({
-            "Error": error
-        });
+        res.status(500).send("Controller error:" + error.message);
     };
 };
 
@@ -30,9 +28,9 @@ exports.create = async (req, res) => {
 exports.findAll = async (req, res) => {
     try {
         const gyms = await Gym.findAll();
-        res.send(gyms);
+        res.status(200).send(gyms);
     } catch (error) {
-        res.send(error)
+        res.status(500).send("Controller error:" + error.message);
     };
 };
 
@@ -43,12 +41,10 @@ exports.findOne = async (req, res) => {
         if (gym === null) {
             throw error;
         } else {
-            res.send(gym)
+            res.status(200).send(gym);
         };
     } catch (error) {
-        res.send({
-            "Error": "No gym found"
-        });
+        res.status(500).send("Controller error:" + error.message);
     };
 };
 
@@ -63,7 +59,7 @@ exports.update = async (req, res) => {
             message: "Updated successfully"
         });
     } catch (error) {
-        res.send(error);
+        res.status(500).send("Controller error:" + error.message);
     };
 };
 
@@ -85,62 +81,6 @@ exports.delete = (req, res) => {
                 }
             })
     } catch (error) {
-        res.status(500).send({
-            message: "Error: gym not deleted"
-        });
+        res.status(500).send("Controller error:" + error.message);
     };
 };
-
-
-// exports.create = async (req, res) => {
-//     try {
-//         const data = req.body;
-//         const newGym = new Gym(data);
-//         const gym = await newGym.create(newGym);
-//         res.status(200).send(gym);
-//     } catch (error) {
-//         res.status(500).send("Controller error:" + error.message);
-//     };
-// };
-
-// exports.findAll = async (req, res) => {
-//     try {
-//         const reqQuery = req.query;
-//         const gyms = await Gym.findAll(reqQuery);
-//         res.send(gyms);
-//     } catch (error) {
-//         res.status(500).send("Controller error:" + error.message);
-//     };
-// };
-
-// exports.findOne = async (req, res) => {
-//     try {
-//         const reqParams = req.params.id;
-//         const gym = await Gym.findOne(reqParams);
-//         res.send(gym);
-//     } catch (error) {
-//         res.status(500).send("Controller error:" + error.message);;
-//     };
-// };
-
-// exports.update = async (req, res) => {
-//     try {
-//         const id = req.params.id;
-//         const data = req.body;
-//         await Gym.update(data, id);
-//         res.status(200).send({
-//             message: "Updated successfully"
-//         });
-//     } catch (error) {
-//         res.send(error);
-//     };
-// };
-
-// exports.delete = async (req, res) => {
-//     try {
-//         await Gym.delete(req.params.id);
-//         res.status(200).send("Deleted successfully")
-//     } catch (error) {
-//         res.status(500).send(error.message);
-//     };
-// };
