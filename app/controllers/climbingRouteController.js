@@ -18,9 +18,9 @@ exports.create = async (req, res) => {
             gym_id: req.body.gym_id,
             image_url: req.body.image_url
         });
-        res.send(climbingRoute);
+        res.status(200).send(climbingRoute);
     } catch (error) {
-        res.status(500).send("Controller error:" + error.message)
+        res.status(500).send("Controller error:" + error.message);
     };
 };
 
@@ -28,9 +28,9 @@ exports.create = async (req, res) => {
 exports.findAll = async (req, res) => {
     try {
         const climbingRoutes = await ClimbingRoute.findAll();
-        res.send(climbingRoutes);
+        res.status(200).send(climbingRoutes);
     } catch (error) {
-        res.send(error)
+        res.status(500).send("Controller error:" + error.message);
     };
 };
 
@@ -41,12 +41,10 @@ exports.findOne = async (req, res) => {
         if (climbingRoute === null) {
             throw error;
         } else {
-            res.send(climbingRoute)
+            res.status(200).send(climbingRoute);
         };
     } catch (error) {
-        res.send({
-            message: "No climbing route found"
-        });
+        res.status(500).send("Controller error:" + error.message);
     };
 };
 
@@ -54,21 +52,21 @@ exports.findOne = async (req, res) => {
 exports.update = async (req, res) => {
     const id = req.params.id;
     try {
-        await climbingRoute.update(req.body, {
+        await ClimbingRoute.update(req.body, {
             where: { id: req.params.id }
         });
         res.status(200).send({
             message: "Updated successfully"
         });
     } catch (error) {
-        res.send(error);
+        res.status(500).send("Controller error:" + error.message);
     };
 };
 
 // delete climbing route
 exports.delete = (req, res) => {
     try {
-        climbingRoute.destroy({
+        ClimbingRoute.destroy({
             where: { id: req.params.id }
         })
             .then(rowDeleted => {
@@ -83,8 +81,6 @@ exports.delete = (req, res) => {
                 };
             });
     } catch (error) {
-        res.status(500).send(
-            "Controller error" + error.message
-        );
+        res.status(500).send("Controller error" + error.message);
     };
 };

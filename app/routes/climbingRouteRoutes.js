@@ -1,12 +1,12 @@
 module.exports = app => {
-    const climbing_routes = require("../controllers/climbingRouteController.js");
+    const climbingRoutes = require("../controllers/climbingRouteController.js");
     const router = require("express").Router();
-    
-    router.post("/", climbing_routes.create);
-    router.get("/", climbing_routes.findAll);
-    router.get("/:id", climbing_routes.findOne);
-    router.patch("/:id", climbing_routes.update);
-    router.delete("/:id", climbing_routes.delete);
 
-    app.use('/api/v1/climbing_routes', router);
+    router.post("/", climbingRoutes.create);
+    router.get("/", climbingRoutes.findAll);
+    router.get("/:id", climbingRoutes.findOne);
+    router.patch("/:id", climbingRoutes.update);
+    router.delete("/:id", climbingRoutes.delete);
+
+    app.use('/api/v1/climbing-routes', router);
 };
