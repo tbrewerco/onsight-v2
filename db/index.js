@@ -27,7 +27,6 @@ db.users = require("../app/models/userModel.js")(sequelize, Sequelize);
 db.userFavoriteRoutes = require("../app/models/userFavoriteRouteModel.js")(sequelize, Sequelize);
 db.userFavoriteGyms = require("../app/models/userFavoriteGymModel.js")(sequelize, Sequelize);
 db.userTicks = require("../app/models/userTickModel.js")(sequelize, Sequelize);
-// userticks
 
 
 module.exports = db;

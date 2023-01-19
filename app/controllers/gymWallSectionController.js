@@ -1,5 +1,5 @@
 const db = require("../../db/index.js");
-const GymWallSection = db.gymWallSection;
+const GymWallSection = db.gymWallSections;
 const Op = db.Sequelize.Op;
 
 // create gym wall section

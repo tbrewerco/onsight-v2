@@ -9,7 +9,7 @@ exports.create = async (req, res) => {
             user_id: req.body.user_id,
             gym_id: req.body.gym_id
         });
-        res.status(200).send(UserFavoriteGym);
+        res.status(200).send(userFavoriteGym);
     } catch (error) {
         res.send({
             "Error": error
