@@ -11,7 +11,10 @@ exports.create = async (req, res) => {
             address_city: req.body.addressCity,
             address_state: req.body.addressState,
             address_zip: req.body.addressZip,
-            address_coordinates: req.body.addressCoordinates,
+            address_coordinates: {
+                type: "Point",
+                coordinates: req.body.addressCoordinates
+            },
             has_boulders: req.body.hasBoulders,
             has_sport_routes: req.body.hasSportRoutes,
             has_auto_belays: req.body.hasAutoBelays,
