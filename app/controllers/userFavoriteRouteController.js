@@ -1,13 +1,13 @@
 const db = require("../../db/index.js");
-const UserFavoriteRoute = db.userFavoriteRoute;
+const UserFavoriteRoute = db.userFavoriteRoutes;
 const Op = db.Sequelize.Op;
 
 // create user_favorite_route
 exports.create = async (req, res) => {
     try {
         const userFavoriteRoute = await UserFavoriteRoute.create({
-            user_id: req.body.user_id,
-            route_id: req.body.route_id
+            user_id: req.body.userId,
+            route_id: req.body.routeId
         });
         res.status(200).send(userFavoriteRoute);
     } catch (error) {

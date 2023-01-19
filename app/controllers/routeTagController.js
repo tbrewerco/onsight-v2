@@ -1,12 +1,12 @@
 const db = require("../../db/index.js");
-const RouteTag = db.routeTag;
+const RouteTag = db.routeTags;
 const Op = db.Sequelize.Op;
 
 // create routeTag
 exports.create = async (req, res) => {
     try {
         const routeTag = await RouteTag.create({
-            route_id: req.body.route_id,
+            route_id: req.body.routeId,
             tag: req.body.tag,
         })
         res.status(200).send(routeTag);
@@ -18,7 +18,7 @@ exports.create = async (req, res) => {
 };
 
 // get all routeTags by route_id
-exports.findAll = async (req, res) => {
+exports.findOne = async (req, res) => {
     try {
         const routeTags = await RouteTag.findAll({
             where: { route_id: req.params.id }

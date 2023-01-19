@@ -7,16 +7,16 @@ exports.create = async (req, res) => {
     try {
         const climbingRoute = await ClimbingRoute.create({
             name: req.body.name,
-            is_top_rope: req.body.is_top_rope,
-            is_auto_belay: req.body.is_auto_belay,
-            is_lead_climb: req.body.is_lead_climb,
-            is_boulder: req.body.is_boulder,
-            hold_color: req.body.hold_color,
-            setter_grade: req.body.setter_grade,
-            wall_section_id: req.body.wall_section_id,
-            setter_id: req.body.setter_id,
-            gym_id: req.body.gym_id,
-            image_url: req.body.image_url
+            is_top_rope: req.body.isTopRope,
+            is_auto_belay: req.body.isAutoBelay,
+            is_lead_climb: req.body.isLeadClimb,
+            is_boulder: req.body.isBoulder,
+            hold_color: req.body.holdColor,
+            setter_grade: req.body.setterGrade,
+            wall_section_id: req.body.wallSectionId,
+            setter_id: req.body.setterId,
+            gym_id: req.body.gymId,
+            image_url: req.body.imageUrl
         });
         res.status(200).send(climbingRoute);
     } catch (error) {

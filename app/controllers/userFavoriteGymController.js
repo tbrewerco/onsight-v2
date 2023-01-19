@@ -1,15 +1,15 @@
 const db = require("../../db/index.js");
-const UserFavoriteGym = db.userFavoriteGym;
+const UserFavoriteGym = db.userFavoriteGyms;
 const Op = db.Sequelize.Op;
 
 // create user_favorite_gym
 exports.create = async (req, res) => {
     try {
         const userFavoriteGym = await UserFavoriteGym.create({
-            user_id: req.body.user_id,
-            gym_id: req.body.gym_id
+            user_id: req.body.userId,
+            gym_id: req.body.gymId
         });
-        res.status(200).send(UserFavoriteGym);
+        res.status(200).send(userFavoriteGym);
     } catch (error) {
         res.send({
             "Error": error

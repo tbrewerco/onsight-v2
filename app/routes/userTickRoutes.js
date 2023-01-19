@@ -6,5 +6,5 @@ module.exports = app => {
     router.get("/:id", user_ticks.findAll);
     router.delete("/:id", user_ticks.delete);
 
-    app.use('/api/v1/user_ticks', router);
+    app.use('/api/v1/user-ticks', router);
 };

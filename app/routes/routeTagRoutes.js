@@ -1,11 +1,12 @@
 module.exports = app => {
-    const route_tags = require("../controllers/routeTagController.js");
+    const routeTags = require("../controllers/routeTagController.js");
     const router = require("express").Router();
-    
-    router.post("/", route_tags.create);
-    router.get("/:id", route_tags.findAll);
-    router.delete("/:id", route_tags.delete);
-    router.delete("/route/:route_id", route_tags.delete);
 
-    app.use('/api/v1/route_tags', router);
+    // findAll not necessary at this point
+    router.post("/", routeTags.create);
+    router.get("/:id", routeTags.findOne);
+    router.delete("/:id", routeTags.delete);
+    router.delete("/route/:route_id", routeTags.delete);
+
+    app.use('/api/v1/route-tags', router);
 };
