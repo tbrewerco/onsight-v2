@@ -7,7 +7,7 @@ exports.create = async (req, res) => {
     try {
         const gymWallSection = await GymWallSection.create({
             name: req.body.name,
-            gym_id: req.body.gym_id
+            gym_id: req.body.gymId
         });
         res.status(200).send(gymWallSection);
     } catch (error) {
