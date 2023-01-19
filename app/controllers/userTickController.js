@@ -1,5 +1,5 @@
 const db = require("../../db/index.js");
-const UserTick = db.userTick;
+const UserTick = db.userTicks;
 const Op = db.Sequelize.Op;
 
 // create user_tick

@@ -18,7 +18,7 @@ exports.create = async (req, res) => {
             user_id: req.body.userId,
         });
         // create row in user_ticks (join table) when tick created
-        const userTick = await User_tick.create({
+        const userTick = await UserTick.create({
             user_id: tick.user_id,
             tick_id: tick.tick_id
         })

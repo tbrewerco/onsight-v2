@@ -1,5 +1,5 @@
 const db = require("../../db/index.js");
-const UserFavoriteRoute = db.userFavoriteRoute;
+const UserFavoriteRoute = db.userFavoriteRoutes;
 const Op = db.Sequelize.Op;
 
 // create user_favorite_route

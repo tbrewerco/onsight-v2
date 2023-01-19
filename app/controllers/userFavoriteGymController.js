@@ -1,5 +1,5 @@
 const db = require("../../db/index.js");
-const UserFavoriteGym = db.userFavoriteGym;
+const UserFavoriteGym = db.userFavoriteGyms;
 const Op = db.Sequelize.Op;
 
 // create user_favorite_gym
