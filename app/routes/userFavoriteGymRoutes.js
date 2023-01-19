@@ -7,5 +7,5 @@ module.exports = app => {
     router.delete("/:id", user_favorite_gyms.delete);
     router.delete("/user/:user_id", user_favorite_gyms.delete);
 
-    app.use('/api/v1/user_favorite_gyms', router);
+    app.use('/api/v1/user-favorite-gyms', router);
 };

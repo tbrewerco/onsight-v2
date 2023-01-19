@@ -7,5 +7,5 @@ module.exports = app => {
     router.delete("/:id", route_tags.delete);
     router.delete("/route/:route_id", route_tags.delete);
 
-    app.use('/api/v1/route_tags', router);
+    app.use('/api/v1/route-tags', router);
 };
