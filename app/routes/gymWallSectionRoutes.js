@@ -8,5 +8,5 @@ module.exports = app => {
     router.patch("/:id", gymWallSections.update);
     router.delete("/:id", gymWallSections.delete);
 
-    app.use('/api/v1/gym-wall-Sections', router);
+    app.use('/api/v1/gym-wall-sections', router);
 };
