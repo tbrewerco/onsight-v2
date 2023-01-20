@@ -27,7 +27,7 @@ require("./app/routes/gymRoutes.js")(app);
 require("./app/routes/climbingRouteRoutes.js")(app);
 require("./app/routes/gymWallSectionRoutes.js")(app);
 require("./app/routes/tickRoutes.js")(app);
-require("./app/routes/userTickRoutes.js")(app);
+// require("./app/routes/userTickRoutes.js")(app);
 require("./app/routes/userFavoriteRouteRoutes.js")(app);
 require("./app/routes/userFavoriteGymRoutes.js")(app);
 require("./app/routes/routeTagRoutes.js")(app);

@@ -1,3 +1,5 @@
+const Tick = require('../models/tickModel.js');
+
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define("user", {
         username: {
@@ -47,5 +49,13 @@ module.exports = (sequelize, Sequelize) => {
             }
         }
     });
+
+    User.associate = (models) => {
+        User.hasMany(Tick, {
+            foreignKey: 'userId',
+            as: 'userTicks'
+        })
+    }
     return User;
+
 }

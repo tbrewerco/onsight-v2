@@ -26,7 +26,9 @@ db.ticks = require("../app/models/tickModel.js")(sequelize, Sequelize);
 db.users = require("../app/models/userModel.js")(sequelize, Sequelize);
 db.userFavoriteRoutes = require("../app/models/userFavoriteRouteModel.js")(sequelize, Sequelize);
 db.userFavoriteGyms = require("../app/models/userFavoriteGymModel.js")(sequelize, Sequelize);
-db.userTicks = require("../app/models/userTickModel.js")(sequelize, Sequelize);
 
+// the following will destroy data, so be careful
+sequelize.sync({ force: true });
+console.log("All models were synchronized successfully.");
 
 module.exports = db;

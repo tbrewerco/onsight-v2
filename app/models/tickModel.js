@@ -1,3 +1,5 @@
+const User = require('../models/userModel.js');
+
 module.exports = (sequelize, Sequelize) => {
     const Tick = sequelize.define("tick", {
         comment: {
@@ -44,8 +46,18 @@ module.exports = (sequelize, Sequelize) => {
             references: {
                 model: 'users',
                 key: 'id'
-            }
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL',
         }
     });
+
+    Tick.associate = (models) => {
+        Tick.belongsTo(models.User, {
+            foreignKey: 'userId',
+            as: 'user'
+        });
+    };
+
     return Tick;
 };
