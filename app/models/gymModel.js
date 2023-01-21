@@ -11,65 +11,68 @@ module.exports = (sequelize, Sequelize) => {
             unique: true,
             notEmpty: true,
         },
-        address_street: {
+        addressStreet: {
             type: Sequelize.STRING,
             allowNull: false,
             notEmpty: true
         },
-        address_city: {
+        addressCity: {
             type: Sequelize.STRING,
             allowNull: false,
             notEmpty: true,
             isAlpha: true,
         },
-        address_state: {
+        addressState: {
             type: Sequelize.STRING,
             allowNull: false,
             notEmpty: true,
             isAlpha: true,
         },
-        address_zip: {
+        addressZip: {
             type: Sequelize.STRING,
             allowNull: false,
             notEmpty: true,
             isNumeric: true,
         },
-        address_coordinates: {
+        addressCoordinates: {
             type: Sequelize.GEOMETRY('POINT', 4326)
         },
-        has_boulders: {
+        hasBoulders: {
             type: Sequelize.BOOLEAN,
             type: Sequelize.ENUM('yes', 'no'),
             allowNull: true,
             defaultValue: null
         },
-        has_sport_routes: {
+        hasSportRoutes: {
             type: Sequelize.BOOLEAN,
             type: Sequelize.ENUM('yes', 'no'),
             allowNull: true,
             defaultValue: null
         },
-        has_auto_belays: {
+        hasAutoBelays: {
             type: Sequelize.BOOLEAN,
             type: Sequelize.ENUM('yes', 'no'),
             allowNull: true,
             defaultValue: null
         },
-        photo_url: {
+        photoUrl: {
             type: Sequelize.STRING,
             unique: true,
             validate: {
                 isUrl: { msg: "Invalid URL" }
             }
         },
-        created_by: {
+        createdBy: {
             type: Sequelize.INTEGER,
             references: {
                 model: 'users',
                 key: 'id'
             }
         }
-    });
+    }, {
+        underscored: true
+    }
+    );
     return Gym;
 };
 
