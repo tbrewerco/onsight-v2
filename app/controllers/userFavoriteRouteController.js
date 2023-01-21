@@ -5,10 +5,7 @@ const Op = db.Sequelize.Op;
 // create user_favorite_route
 exports.create = async (req, res) => {
     try {
-        const userFavoriteRoute = await UserFavoriteRoute.create({
-            user_id: req.body.userId,
-            route_id: req.body.routeId
-        });
+        const userFavoriteRoute = await UserFavoriteRoute.create(req.body);
         res.status(200).send(userFavoriteRoute);
     } catch (error) {
         res.send({
