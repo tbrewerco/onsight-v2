@@ -1,19 +1,12 @@
 const db = require("../../db/index.js");
 const User = db.users;
+const Ticks = db.ticks;
 const Op = db.Sequelize.Op;
 
 // create user
 exports.create = async (req, res) => {
     try {
-        const user = await User.create({
-            username: req.body.username,
-            given_name: req.body.givenName,
-            family_name: req.body.familyName,
-            role: req.body.role,
-            email: req.body.email,
-            password: req.body.password,
-            profile_photo_url: req.body.profilePhotoUrl
-        });
+        const user = await User.create(req.body);
         res.send(user);
     } catch (error) {
         res.status(500).send("Controller error: " + error.message);
@@ -34,13 +27,20 @@ exports.findAll = async (req, res) => {
 // get a user by Id
 exports.findOne = async (req, res) => {
     try {
-        const user = await User.findByPk(req.params.id);
+        const user = await User.findOne({
+            where: { id: req.params.id },
+            include: [{
+                model: Ticks,
+                as: 'ticks'
+            }]
+        });
         if (user === null) {
             throw error;
         } else {
             res.send(user)
         };
     } catch (error) {
+        console.log(error);
         res.send({
             "Error": "No user found"
         });
