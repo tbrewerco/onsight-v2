@@ -6,13 +6,15 @@ module.exports = (sequelize, Sequelize) => {
             unique: true,
             notEmpty: true,
         },
-        gym_id: {
+        gymId: {
             type: Sequelize.INTEGER,
             references: {
                 model: 'gyms',
                 key: 'id'
             }
         }
+    }, {
+        underscored: true
     });
     return Gym_wall_section;
 };
