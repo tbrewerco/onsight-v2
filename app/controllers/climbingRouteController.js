@@ -5,19 +5,7 @@ const Op = db.Sequelize.Op;
 // create climbing route
 exports.create = async (req, res) => {
     try {
-        const climbingRoute = await ClimbingRoute.create({
-            name: req.body.name,
-            is_top_rope: req.body.isTopRope,
-            is_auto_belay: req.body.isAutoBelay,
-            is_lead_climb: req.body.isLeadClimb,
-            is_boulder: req.body.isBoulder,
-            hold_color: req.body.holdColor,
-            setter_grade: req.body.setterGrade,
-            wall_section_id: req.body.wallSectionId,
-            setter_id: req.body.setterId,
-            gym_id: req.body.gymId,
-            image_url: req.body.imageUrl
-        });
+        const climbingRoute = await ClimbingRoute.create(req.body);
         res.status(200).send(climbingRoute);
     } catch (error) {
         res.status(500).send("Controller error:" + error.message);

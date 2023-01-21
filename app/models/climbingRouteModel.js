@@ -5,61 +5,63 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             notEmpty: true,
         },
-        is_top_rope: {
+        isTopRope: {
             type: Sequelize.ENUM('yes', 'no'),
             allowNull: false,
             notEmpty: true
         },
-        is_auto_belay: {
+        isAutoBelay: {
             type: Sequelize.ENUM('yes', 'no'),
             allowNull: false,
             notEmpty: true
         },
-        is_lead_climb: {
+        isLeadClimb: {
             type: Sequelize.ENUM('yes', 'no'),
             allowNull: false,
             notEmpty: true
         },
-        is_boulder: {
+        isBoulder: {
             type: Sequelize.ENUM('yes', 'no'),
             allowNull: false,
             notEmpty: true
         },
-        hold_color: {
+        holdColor: {
             type: Sequelize.STRING,
             allowNull: false,
             notEmpty: true,
         },
-        setter_grade: {
+        setterGrade: {
             type: Sequelize.INTEGER,
             min: 1,
             max: 30
         },
-        gym_wall_section_id: {
+        gymWallSectionId: {
             type: Sequelize.INTEGER,
             references: {
                 model: 'gym_wall_sections',
                 key: 'id'
             }
         },
-        setter_id: {
+        setterId: {
             type: Sequelize.INTEGER,
             references: {
                 model: 'users',
                 key: 'id'
             }
         },
-        gym_id: {
+        gymId: {
             type: Sequelize.INTEGER,
             references: {
                 model: 'gyms',
                 key: 'id'
             }
         },
-        image_url: {
+        imageUrl: {
             type: Sequelize.STRING,
             unique: true
         }
+    }, {
+        underscored: true
     });
     return Climbing_route;
 };
