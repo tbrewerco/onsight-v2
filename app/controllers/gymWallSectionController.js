@@ -5,10 +5,7 @@ const Op = db.Sequelize.Op;
 // create gym wall section
 exports.create = async (req, res) => {
     try {
-        const gymWallSection = await GymWallSection.create({
-            name: req.body.name,
-            gym_id: req.body.gymId
-        });
+        const gymWallSection = await GymWallSection.create(req.body);
         res.status(200).send(gymWallSection);
     } catch (error) {
         res.send("Controller error: " + error.message)

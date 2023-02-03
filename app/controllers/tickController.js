@@ -6,24 +6,10 @@ const Op = db.Sequelize.Op;
 // create tick
 exports.create = async (req, res) => {
     try {
-        const tick = await Tick.create({
-            comment: req.body.comment,
-            did_send: req.body.didSend,
-            did_flash: req.body.didFlash,
-            did_onsight: req.body.didOnsight,
-            quality_rating: req.body.qualityRating,
-            difficulty_grade: req.body.difficultyGrade,
-            gym_id: req.body.gymId,
-            route_id: req.body.routeId,
-            user_id: req.body.userId,
-        });
-        // create row in user_ticks (join table) when tick created
-        const userTick = await UserTick.create({
-            user_id: tick.user_id,
-            tick_id: tick.tick_id
-        })
-        res.status(200).send({ tick, userTick });
+        const tick = await Tick.create(req.body);
+        res.status(200).send(tick);
     } catch (error) {
+        console.log(error);
         res.send({
             "Error": error
         });

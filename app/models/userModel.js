@@ -12,12 +12,12 @@ module.exports = (sequelize, Sequelize) => {
                 }
             }
         },
-        given_name: {
+        givenName: {
             type: Sequelize.STRING,
             allowNull: false,
             notEmpty: true
         },
-        family_name: {
+        familyName: {
             type: Sequelize.STRING,
             allowNull: false,
             notEmpty: true
@@ -39,13 +39,17 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             notEmpty: true
         },
-        profile_photo_url: {
+        profilePhotoUrl: {
             type: Sequelize.STRING,
             unique: true,
             validate: {
                 isUrl: { msg: "Invalid URL" }
             }
         }
+    }, {
+        underscored: true
     });
+
     return User;
+
 }

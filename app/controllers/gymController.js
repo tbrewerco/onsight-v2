@@ -1,26 +1,12 @@
 const db = require("../../db/index.js");
 const Gym = db.gyms;
+const ClimbingRoutes = db.climbingRoutes;
 const Op = db.Sequelize.Op;
 
 // create gym
 exports.create = async (req, res) => {
     try {
-        const gym = await Gym.create({
-            name: req.body.name,
-            address_street: req.body.addressStreet,
-            address_city: req.body.addressCity,
-            address_state: req.body.addressState,
-            address_zip: req.body.addressZip,
-            address_coordinates: {
-                type: "Point",
-                coordinates: req.body.addressCoordinates
-            },
-            has_boulders: req.body.hasBoulders,
-            has_sport_routes: req.body.hasSportRoutes,
-            has_auto_belays: req.body.hasAutoBelays,
-            photo_url: req.body.photoUrl,
-            created_by: req.body.createdBy
-        });
+        const gym = await Gym.create(req.body);
         res.status(200).send(gym);
     } catch (error) {
         res.status(500).send("Controller error:" + error.message);
@@ -40,7 +26,13 @@ exports.findAll = async (req, res) => {
 // get a gym by Id
 exports.findOne = async (req, res) => {
     try {
-        const gym = await Gym.findByPk(req.params.id);
+        const gym = await Gym.findOne({
+            where: { id: req.params.id },
+            include: [{
+                model: ClimbingRoutes,
+                as: 'climbing_routes'
+            }]
+        });
         if (gym === null) {
             throw error;
         } else {

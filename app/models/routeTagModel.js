@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Route_tag = sequelize.define("route_tag", {
-        route_id: {
+        routeId: {
             type: Sequelize.INTEGER,
             references: {
                 model: 'climbing_routes',
@@ -10,8 +10,9 @@ module.exports = (sequelize, Sequelize) => {
         tag: {
             type: Sequelize.STRING,
         }
-    },
-        { underscored: true }
+    }, {
+        underscored: true
+    }
     );
     return Route_tag;
 }

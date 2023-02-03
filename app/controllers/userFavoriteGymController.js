@@ -5,10 +5,7 @@ const Op = db.Sequelize.Op;
 // create user_favorite_gym
 exports.create = async (req, res) => {
     try {
-        const userFavoriteGym = await UserFavoriteGym.create({
-            user_id: req.body.userId,
-            gym_id: req.body.gymId
-        });
+        const userFavoriteGym = await UserFavoriteGym.create(req.body);
         res.status(200).send(userFavoriteGym);
     } catch (error) {
         res.send({

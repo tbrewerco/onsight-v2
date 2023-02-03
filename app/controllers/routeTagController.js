@@ -5,10 +5,7 @@ const Op = db.Sequelize.Op;
 // create routeTag
 exports.create = async (req, res) => {
     try {
-        const routeTag = await RouteTag.create({
-            route_id: req.body.routeId,
-            tag: req.body.tag,
-        })
+        const routeTag = await RouteTag.create(req.body)
         res.status(200).send(routeTag);
     } catch (error) {
         res.send({
