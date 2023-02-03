@@ -10,7 +10,6 @@ exports.create = async (req, res) => {
         res.send(user);
     } catch (error) {
         res.status(500).send("Controller error: " + error.message);
-
     };
 };
 
