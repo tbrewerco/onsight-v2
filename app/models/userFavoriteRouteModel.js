@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
                 key: 'id'
             }
         },
-        routeId: {
+        climbingRouteId: {
             type: Sequelize.INTEGER,
             references: {
                 model: 'climbing_routes',
