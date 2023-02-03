@@ -32,5 +32,10 @@ require("./app/routes/userFavoriteRouteRoutes.js")(app);
 require("./app/routes/userFavoriteGymRoutes.js")(app);
 require("./app/routes/routeTagRoutes.js")(app);
 
+// throw error for missing endpoints 
+app.all("*", (req, res, next) => {
+    next(`The URL ${req.originalUrl} does not exist`, 404);
+});
+
 // set port and listen for requests
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
