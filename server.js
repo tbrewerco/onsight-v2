@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 4000;
 const express = require("express");
 const cors = require("cors");
 const app = express();
-
+const errorHandler = require("./middleware/errorHandler.js");
 const corsOptions = {
     origin: "http://localhost:3001"
 };
@@ -15,6 +15,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use('/api', errorHandler);
 
 // test route
 app.get("/", (req, res) => {
@@ -27,7 +28,6 @@ require("./app/routes/gymRoutes.js")(app);
 require("./app/routes/climbingRouteRoutes.js")(app);
 require("./app/routes/gymWallSectionRoutes.js")(app);
 require("./app/routes/tickRoutes.js")(app);
-// require("./app/routes/userTickRoutes.js")(app);
 require("./app/routes/userFavoriteRouteRoutes.js")(app);
 require("./app/routes/userFavoriteGymRoutes.js")(app);
 require("./app/routes/routeTagRoutes.js")(app);
