@@ -4,3 +4,4 @@
 /docker-compose.yml
 /api_spec.js
 /migrations.sql
+/logs
