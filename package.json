@@ -24,7 +24,7 @@
     "mysql": "^2.18.1",
     "mysql-migrations": "^1.0.7",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.28.0",
+    "sequelize": "^6.29.0",
     "start": "^5.1.0",
     "winston": "^3.8.2",
     "zipcodes": "^8.0.0"
